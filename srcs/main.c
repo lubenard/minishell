@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/10 22:57:23 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:21:21 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ inline static void		main_loop(char **env)
 	char	*cur_dir;
 	char	*command;
 
-	cur_dir = ft_strsub(env[8], 4, 50);
-	cur_name = ft_strsub(env[22], 5, 30);
+	//cur_dir = ft_strsub(env[8], 4, 4092);
+	cur_dir = ft_strsub(env[7], 4, 857);
+	//cur_name = ft_strsub(env[22], 5, 4091);
+	cur_name = ft_strsub(env[16], 5, 50);
 	write_prompt(cur_name, cur_dir);
 	get_next_line(0, &command);
 	get_command(command);
@@ -43,7 +45,7 @@ inline static void		main_loop(char **env)
 	{
 		free_prompt(cur_name, cur_dir, command);
 		cur_dir = ft_strsub(env[8], 4, 50);
-		cur_name = ft_strsub(env[22], 5, 30);
+		cur_name = ft_strsub(env[22], 4, 30);
 		write_prompt(cur_name, cur_dir);
 		get_next_line(0, &command);
 		get_command(command);
