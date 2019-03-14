@@ -6,17 +6,22 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/11 16:21:21 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 00:39:00 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_prompt(char *cur_name, char *cur_dir, char *command)
+void	free_prompt(char *cur_name, char *cur_dir, char **path)
 {
-	free(command);
+	int		i;
+
+	i = 0;
 	free(cur_name);
 	free(cur_dir);
+	while (path[i][0] != '\0')
+		free(path[i++]);
+	free(path);
 }
 
 void	write_prompt(char *cur_name, char *cur_dir)
@@ -33,24 +38,26 @@ inline static void		main_loop(char **env)
 	char	*cur_name;
 	char	*cur_dir;
 	char	*command;
+	char	**path;
 
-	//cur_dir = ft_strsub(env[8], 4, 4092);
-	cur_dir = ft_strsub(env[7], 4, 857);
-	//cur_name = ft_strsub(env[22], 5, 4091);
-	cur_name = ft_strsub(env[16], 5, 50);
+	cur_dir = ft_strsub(env[8], 4, 857);
+	//cur_dir = ft_strsub(env[7], 4, 857);
+	cur_name = ft_strsub(env[22], 5, 50);
+	//cur_name = ft_strsub(env[16], 5, 50);
 	write_prompt(cur_name, cur_dir);
+	path = get_path(env[36]);
 	get_next_line(0, &command);
-	get_command(command);
+	get_command(command, path);
 	while (ft_strcmp(command, "exit") != 0)
 	{
-		free_prompt(cur_name, cur_dir, command);
-		cur_dir = ft_strsub(env[8], 4, 50);
-		cur_name = ft_strsub(env[22], 4, 30);
+		free(command);
 		write_prompt(cur_name, cur_dir);
 		get_next_line(0, &command);
-		get_command(command);
+		get_command(command, path);
 	}
-	free_prompt(cur_name, cur_dir, command);
+	free_prompt(cur_name, cur_dir, path);
+	free(command);
+	return ;
 }
 
 int		main(int argc, char **argv, char **env)
