@@ -6,17 +6,24 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 12:05:47 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 15:55:14 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		echo(char **argv)
+void	echo_usage(void)
 {
-	i = 1;
+	
+}
 
-	while (argv[i])
-		ft_putstr(argv[i]);
+int		echo(char *command)
+{
+	int i;
+
+	i = 5;
+	while (command[i])
+		ft_putchar(command[i++]);
+	ft_putchar('\n');
 	return (0);
 }

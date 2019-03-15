@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 00:39:00 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 16:20:40 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,21 @@ inline static void		main_loop(char **env)
 	char	*command;
 	char	**path;
 
-	cur_dir = ft_strsub(env[8], 4, 857);
-	//cur_dir = ft_strsub(env[7], 4, 857);
-	cur_name = ft_strsub(env[22], 5, 50);
-	//cur_name = ft_strsub(env[16], 5, 50);
+	//cur_dir = ft_strsub(env[8], 4, 857);
+	cur_dir = ft_strsub(env[7], 4, 857);
+	//cur_name = ft_strsub(env[22], 5, 50);
+	cur_name = ft_strsub(env[16], 5, 50);
 	write_prompt(cur_name, cur_dir);
-	path = get_path(env[36]);
+	//path = get_path(env[36]);
+	path = get_path(env[12]);
 	get_next_line(0, &command);
-	get_command(command, path);
+	get_command(command, path, env);
 	while (ft_strcmp(command, "exit") != 0)
 	{
 		free(command);
 		write_prompt(cur_name, cur_dir);
 		get_next_line(0, &command);
-		get_command(command, path);
+		get_command(command, path, env);
 	}
 	free_prompt(cur_name, cur_dir, path);
 	free(command);

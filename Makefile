@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/03/15 00:14:20 by lubenard         ###   ########.fr        #
+#    Updated: 2019/03/15 16:20:09 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = minishell
 
 SRC = srcs/main.c \
 	  srcs/get_command.c \
-	  srcs/get_path.c
+	  srcs/get_path.c \
+	  srcs/builtins/echo.c \
+	  srcs/builtins/print_env.c
 
 OBJ = $(SRC:.c=.o)
 

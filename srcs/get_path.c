@@ -6,13 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 00:39:53 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 15:20:37 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include "stdio.h"
 
 int		ft_len(char *path_line)
 {
