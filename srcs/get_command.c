@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 16:21:59 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:04:12 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ char	*extract_command(char *command)
 	i = 0;
 	while (command[i] != ' ' && command[i])
 		++i;
-	return (ft_strsub(command,0, i));
+	return (ft_strsub(command, 0, i));
 }
 
 void	get_command(char *command, char **path, char **env)
 {
-	(void)path;
 	char *first_command;
+	char *get_right_path;
 
 	if (ft_strcmp(command, "exit") != 0)
 	{
@@ -43,6 +43,9 @@ void	get_command(char *command, char **path, char **env)
 			echo(command);
 		else if (ft_strcmp(first_command, "env") == 0)
 			print_env(env);
+		else if ((get_right_path = external_command(path, first_command))
+			!= NULL)
+			execute_command(get_right_path, command);
 		else
 			error(first_command);
 		free(first_command);

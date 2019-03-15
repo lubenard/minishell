@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 15:20:37 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:01:45 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**get_path(char *path_line)
 	i = 0;
 	j = 5;
 	k = 0;
-	if (!(path = (char **)malloc(sizeof(char *) * (ft_len(path_line)+ 1))))
+	if (!(path = (char **)malloc(sizeof(char *) * (ft_len(path_line) + 1))))
 		return (NULL);
 	while (k < ft_len(path_line))
 	{

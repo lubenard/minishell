@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 16:58:55 by lubenard         ###   ########.fr       */
+/*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
+/*   Updated: 2019/03/15 17:00:47 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <unistd.h>
-# include "../libft/libft.h"
+char	*external_command(char **path, char *first_command)
+{
+	return (NULL);
+}
 
-void	get_command(char *command, char **path, char **env);
-char	**get_path(char *path_line);
-char	*external_command(char **path, char *first_command);
-int		execute_command(char *get_right_path, char *command);
-/*
-** Builtins
-*/
-int		echo(char *command);
-void	print_env(char **env);
-
-#endif
+int		execute_command(char *get_right_path, char *command)
+{
+	return (0);
+}

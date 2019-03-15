@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 15:55:14 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/15 17:05:01 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	echo_usage(void)
 {
-	
+	ft_putstr("Please learn how to use echo\n");
 }
 
 int		echo(char *command)
