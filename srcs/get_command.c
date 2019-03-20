@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 17:04:12 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/20 18:34:24 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*extract_command(char *command)
 	return (ft_strsub(command, 0, i));
 }
 
-void	get_command(char *command, char **path, char **env)
+void	get_command(char *command, char **path, t_env *lkd_env)
 {
 	char *first_command;
 	char *get_right_path;
@@ -42,7 +42,9 @@ void	get_command(char *command, char **path, char **env)
 		if (ft_strcmp(first_command, "echo") == 0)
 			echo(command);
 		else if (ft_strcmp(first_command, "env") == 0)
-			print_env(env);
+			print_env(lkd_env);
+		else if (ft_strcmp(first_command, "setenv") == 0)
+			set_env(lkd_env, command);
 		else if ((get_right_path = external_command(path, first_command))
 			!= NULL)
 			execute_command(get_right_path, command);

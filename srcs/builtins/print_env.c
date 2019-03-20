@@ -6,20 +6,18 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:15:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 16:22:59 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/20 19:00:55 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	print_env(char **env)
+void	print_env(t_env *lkd_env)
 {
-	int i;
-
-	i = 0;
-	while (env[i])
+	while (lkd_env->next)
 	{
-		ft_putstr(env[i++]);
+		ft_putstr(lkd_env->env_line);
 		ft_putchar('\n');
+		lkd_env = lkd_env->next;
 	}
 }
