@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_isblank.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 16:15:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/21 18:25:16 by lubenard         ###   ########.fr       */
+/*   Created: 2019/03/21 16:37:29 by lubenard          #+#    #+#             */
+/*   Updated: 2019/03/21 17:11:10 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	print_env(t_env *lkd_env)
+#include <stdio.h>
+
+int		ft_isblank(char *str)
 {
-	while (lkd_env->next)
+	int i;
+
+	i = 0;
+	while (str[i])
 	{
-		ft_putstr(lkd_env->env_line);
-		ft_putchar('\n');
-		lkd_env = lkd_env->next;
+		if (str[i] != ' ' && str[i] != '\t')
+			return (0);
+		++i;
 	}
+	return (-1);
 }

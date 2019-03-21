@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/03/20 18:57:01 by lubenard         ###   ########.fr        #
+#    Updated: 2019/03/21 15:26:49 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRC = srcs/main.c \
 	  srcs/get_path.c \
 	  srcs/builtins/echo.c \
 	  srcs/builtins/print_env.c \
-	  srcs/builtins/set_env.c
+	  srcs/builtins/set_env.c \
+	  srcs/builtins/unset_env.c \
+	  srcs/builtins/cd.c
 
 OBJ = $(SRC:.c=.o)
 

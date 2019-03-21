@@ -6,7 +6,7 @@
 #    By: lubenard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/03/10 22:25:00 by lubenard         ###   ########.fr        #
+#    Updated: 2019/03/21 16:42:27 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,8 @@ SRC = ft_memset.c \
 	ft_lstmap.c \
 	ft_sqrt.c \
 	ft_strndup.c \
-	get_next_line.c
+	get_next_line.c \
+	ft_isblank.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -106,5 +107,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@printf "\033[32m[✓]\033[0m\n"
 
-
 re: fclean all
+
+flcean: fclean

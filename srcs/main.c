@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/20 18:37:08 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:12:33 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	write_prompt(char *cur_name, char *cur_dir)
 	ft_putstr(cur_name);
 	ft_putstr("\033[0m - \033[36m");
 	ft_putstr(cur_dir);
-	ft_putstr("\033[0m > ");
+	ft_putstr("\033[0m >  ");
 }
 
 void	main_loop(char **env, t_env *lkd_env)
@@ -53,12 +53,13 @@ void	main_loop(char **env, t_env *lkd_env)
 	{
 		free(command);
 		write_prompt(cur_name, cur_dir);
+		free(cur_dir);
+		cur_dir = ft_strsub(env[7], 4, 857);
 		get_next_line(0, &command);
 		get_command(command, path, lkd_env);
 	}
 	free_prompt(cur_name, cur_dir, path);
 	free(command);
-	return ;
 }
 
 int		main(int argc, char **argv, char **env)

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 16:15:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/21 18:25:16 by lubenard         ###   ########.fr       */
+/*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
+/*   Updated: 2019/03/21 16:16:22 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	print_env(t_env *lkd_env)
+void	cd(t_env *lkd_env, char *command)
 {
-	while (lkd_env->next)
-	{
-		ft_putstr(lkd_env->env_line);
-		ft_putchar('\n');
-		lkd_env = lkd_env->next;
-	}
+	(void)lkd_env;
+	(void)command;
 }

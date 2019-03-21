@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/20 18:34:24 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/03/21 17:19:08 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ char	*extract_command(char *command)
 	return (ft_strsub(command, 0, i));
 }
 
+void	free_lkd_env(t_env *lkd_env)
+{
+	t_env *tmp;
+
+	while (lkd_env)
+	{
+		tmp = lkd_env;
+		lkd_env = lkd_env->next;
+		free(tmp);
+	}
+}
+
 void	get_command(char *command, char **path, t_env *lkd_env)
 {
 	char *first_command;
@@ -38,18 +50,27 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 
 	if (ft_strcmp(command, "exit") != 0)
 	{
-		first_command = extract_command(command);
-		if (ft_strcmp(first_command, "echo") == 0)
-			echo(command);
-		else if (ft_strcmp(first_command, "env") == 0)
-			print_env(lkd_env);
-		else if (ft_strcmp(first_command, "setenv") == 0)
-			set_env(lkd_env, command);
-		else if ((get_right_path = external_command(path, first_command))
-			!= NULL)
-			execute_command(get_right_path, command);
-		else
-			error(first_command);
-		free(first_command);
+		if (ft_isblank(command) != -1)
+		{
+			first_command = extract_command(command);
+			if (ft_strcmp(first_command, "echo") == 0)
+				echo(command);
+			else if (ft_strcmp(first_command, "env") == 0)
+				print_env(lkd_env);
+			else if (ft_strcmp(first_command, "setenv") == 0)
+				set_env(lkd_env, command);
+			else if (ft_strcmp(first_command, "unsetenv") == 0)
+				unset_env(lkd_env, command);
+			else if (ft_strcmp(first_command, "cd") == 0)
+				cd(lkd_env, command);
+			else if ((get_right_path = external_command(path, first_command))
+				!= NULL)
+				execute_command(get_right_path, command);
+			else
+				error(first_command);
+			free(first_command);
+		}
 	}
+	else
+		free_lkd_env(lkd_env);
 }
