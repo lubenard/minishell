@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/21 18:32:46 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/15 23:51:51 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 # include <dirent.h>
+# include <sys/wait.h>
 
 #include <stdio.h>
 
@@ -26,10 +27,10 @@ typedef struct		s_env
 	struct s_env	*prev;
 }					t_env;
 
-void				get_command(char *command, char **path, t_env *lkd_env);
+void				get_command(char *command, char **path, t_env *lkd_env, char **env);
 char				**get_path(char *path_line);
 char				*external_command(char **path, char *first_command);
-int					execute_command(char *get_right_path, char *command);
+int					execute_command(char *get_right_path, char *command, char **argv, char **env);
 t_env				*get_env(char **env);
 t_env				*new_maillon(void);
 char				*extract_params(char *command);

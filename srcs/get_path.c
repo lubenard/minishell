@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/15 17:01:45 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/15 23:13:16 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	**get_path(char *path_line)
 	int		j;
 	char	**path;
 	int		k;
+	char	*tmp;
 
 	i = 0;
 	j = 5;
@@ -44,7 +45,9 @@ char	**get_path(char *path_line)
 	{
 		while (path_line[j + i] != ':')
 			++i;
-		path[k] = ft_strsub(path_line, j, i);
+		tmp = ft_strsub(path_line, j, i);
+		path[k] = ft_strjoin(tmp, "/");
+		free(tmp);
 		j += i + 1;
 		i = 0;
 		++k;

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/21 17:19:08 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/15 23:38:00 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ void	free_lkd_env(t_env *lkd_env)
 	}
 }
 
-void	get_command(char *command, char **path, t_env *lkd_env)
+void	get_command(char *command, char **path, t_env *lkd_env, char **env)
 {
 	char *first_command;
 	char *get_right_path;
+	char **argv;
 
+	argv = NULL;
 	if (ft_strcmp(command, "exit") != 0)
 	{
 		if (ft_isblank(command) != -1)
@@ -65,7 +67,7 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 				cd(lkd_env, command);
 			else if ((get_right_path = external_command(path, first_command))
 				!= NULL)
-				execute_command(get_right_path, command);
+				execute_command(get_right_path, command, argv, env);
 			else
 				error(first_command);
 			free(first_command);
