@@ -6,13 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/15 23:38:00 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/19 18:11:49 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include <stdio.h>
 
 void	error(char *command)
 {
@@ -31,6 +29,37 @@ char	*extract_command(char *command)
 	return (ft_strsub(command, 0, i));
 }
 
+int		count_args(char *command, int i)
+{
+	int nbr_args;
+
+	nbr_args = 0;
+	while (command[i])
+	{
+		if (command[i] > 32 && command[i + 1] < 33)
+			nbr_args++;
+		i++;
+	}
+	return(nbr_args);
+}
+
+char	**extract_argv(char *command)
+{
+	char	**argv;
+	int		i;
+
+	i = 0;
+	argv = NULL;
+	while (command[i] && command[i] != ' ')
+		i++;
+	while (command[i] && command[i] == ' ')
+		i++;
+	printf("Nbr args = %d\n", count_args(command, i));
+	if (!(argv = (char **)malloc(sizeof(char *) * (count_args(command, i) + 1))))
+		return (NULL);
+	return (argv);
+}
+
 void	free_lkd_env(t_env *lkd_env)
 {
 	t_env *tmp;
@@ -43,13 +72,11 @@ void	free_lkd_env(t_env *lkd_env)
 	}
 }
 
-void	get_command(char *command, char **path, t_env *lkd_env, char **env)
+void	get_command(char *command, char **path, t_env *lkd_env)
 {
 	char *first_command;
 	char *get_right_path;
-	char **argv;
 
-	argv = NULL;
 	if (ft_strcmp(command, "exit") != 0)
 	{
 		if (ft_isblank(command) != -1)
@@ -67,7 +94,7 @@ void	get_command(char *command, char **path, t_env *lkd_env, char **env)
 				cd(lkd_env, command);
 			else if ((get_right_path = external_command(path, first_command))
 				!= NULL)
-				execute_command(get_right_path, command, argv, env);
+				execute_command(get_right_path, extract_command(command), extract_argv(command), compact_env(lkd_env));
 			else
 				error(first_command);
 			free(first_command);

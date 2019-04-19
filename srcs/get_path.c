@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/15 23:13:16 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/19 11:34:39 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,40 @@ int		ft_len(char *path_line)
 		++i;
 	}
 	return (++j);
+}
+
+char	*find_cur_dir(char **env)
+{
+	int i;
+
+	i = 0;
+	while (ft_strncmp("PWD", env[i], 3) != 0)
+		++i;
+	return (ft_strsub(env[i], 4, 400));
+}
+
+char	*find_name(char **env)
+{
+	int i;
+
+	i = 0;
+	while (ft_strncmp("USER", env[i], 4) != 0)
+		++i;
+	return (ft_strsub(env[i], 5, 50));
+}
+
+char	*find_path(char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		if (ft_strncmp("PATH", env[i], 4) == 0)
+			return (env[i]);
+		i++;
+	}
+	return (NULL);
 }
 
 char	**get_path(char *path_line)

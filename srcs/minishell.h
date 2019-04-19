@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/15 23:51:51 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:50:30 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_env
 	struct s_env	*prev;
 }					t_env;
 
-void				get_command(char *command, char **path, t_env *lkd_env, char **env);
+void				get_command(char *command, char **path, t_env *lkd_env);
 char				**get_path(char *path_line);
 char				*external_command(char **path, char *first_command);
 int					execute_command(char *get_right_path, char *command, char **argv, char **env);
@@ -35,6 +35,10 @@ t_env				*get_env(char **env);
 t_env				*new_maillon(void);
 char				*extract_params(char *command);
 char				*extract_command(char *command);
+char				*find_path(char **env);
+char				*find_name(char **env);
+char				*find_cur_dir(char **env);
+char				**compact_env(t_env *lkd_env);
 /*
 ** Builtins
 */

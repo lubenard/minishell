@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/16 00:00:00 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:02:53 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,36 @@ char	*external_command(char **path, char *first_command)
 	return (NULL);
 }
 
-
-void	proc_signal_handler(int signo)
+char	**compact_env(t_env *lkd_env)
 {
-	if (signo == SIGINT)
+	int		i;
+	char	**env;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = lkd_env;
+	while (lkd_env)
 	{
-		ft_putstr("\n");
-		signal(SIGINT, proc_signal_handler);
+		i++;
+		lkd_env = lkd_env->next;
 	}
+	printf("%d elements\n", i);
+	if (!(env = (char **)malloc(sizeof(char *) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (tmp->next)
+	{
+		env[i] = tmp->env_line;
+		printf("env[%d] vaut mtn %s\n", i, env[i]);
+		tmp = tmp->next;
+	}
+	return (env);
 }
 
-int		execute_command(char *get_right_path, char *command,char **argv,char **env)
+int		execute_command(char *get_right_path, char *command,char **argv, char **env)
 {
-	pid_t	pid;
-
-	(void)argv;
-	char *argv2[1] = {"-lha"};
-	pid = fork();
-	signal(SIGINT, proc_signal_handler);
-	if (pid == 0)
-		execve(ft_strjoin(get_right_path,command), argv2, env);
-	else if (pid < 0)
-	{
-		ft_putendl("Fork failed to create a new process.");
-		return (-1);
-	}
-	wait(&pid);
-	return (1);
+	(void)get_right_path;
+	(void)env;
+	printf("Command is '%s', argv is '%s'\n", command, argv[0]);
+	return (0);
 }
