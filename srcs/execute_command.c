@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/19 15:02:53 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/20 22:52:47 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	**compact_env(t_env *lkd_env)
 		env[i] = tmp->env_line;
 		printf("env[%d] vaut mtn %s\n", i, env[i]);
 		tmp = tmp->next;
+		i++;
 	}
 	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/19 18:11:49 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/20 23:37:52 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,17 @@ char	**extract_argv(char *command)
 	int		i;
 
 	i = 0;
-	argv = NULL;
 	while (command[i] && command[i] != ' ')
 		i++;
 	while (command[i] && command[i] == ' ')
 		i++;
-	printf("Nbr args = %d\n", count_args(command, i));
-	if (!(argv = (char **)malloc(sizeof(char *) * (count_args(command, i) + 1))))
-		return (NULL);
+	argv = ft_split_whitespaces(command, i);
+	int k = 0;
+	while (argv[k])
+	{
+		printf("argv[%d] = %s\n", k, argv[k]);
+		k++;
+	}
 	return (argv);
 }
 
