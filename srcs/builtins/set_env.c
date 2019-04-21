@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/21 18:47:11 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/21 10:23:47 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	set_env(t_env *lkd_env, char *command)
 	while (lkd_env->next)
 	{
 		to_extract = extract_first_env(lkd_env->env_line);
-		//printf("lkd_env->env_line = %s\nto_search = %s\nBRUH = %d\n",to_extract,to_search,ft_strcmp(to_extract, to_add));
+		printf("lkd_env->env_line = %s\nto_search = %s\nBRUH = %d\n",to_extract,to_search,ft_strcmp(to_extract, to_add));
 		if (ft_strcmp(to_extract, to_search) == 0)
 			unset_env(lkd_env, to_add);
 		lkd_env = lkd_env->next;

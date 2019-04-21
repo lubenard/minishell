@@ -6,11 +6,17 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/20 22:52:47 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/21 10:21:09 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*search_absolute_path(char *command)
+{
+	(void)command;
+	return (command);
+}
 
 char	*external_command(char **path, char *first_command)
 {
@@ -19,6 +25,8 @@ char	*external_command(char **path, char *first_command)
 	DIR				*pDir;
 
 	i = 0;
+	if (first_command[0] == '/' || (first_command[0] == '.' && first_command[1] == '.'))
+		return (search_absolute_path(first_command));
 	while (path[i+1])
 	{
 		pDir = opendir(path[i]);

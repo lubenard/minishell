@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:46:47 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/21 00:10:36 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/21 10:14:24 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	**ft_split_whitespaces(char *str, int i)
 			printf("Je copie str[i] = %c\n", str[i]);
 			tab[j][k++] = str[i++];
 		}
-		tab[j++][k] = 0;
 	}
 	tab[j] = 0;
 	return (tab);
