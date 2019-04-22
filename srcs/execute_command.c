@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/21 10:21:09 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/22 15:14:48 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int		execute_command(char *get_right_path, char *command,char **argv, char **env
 {
 	(void)get_right_path;
 	(void)env;
-	printf("Command is '%s', argv is '%s'\n", command, argv[0]);
+	printf("Command is '%s', argv are: \n", command);
+	int i = 0;
+	while (argv[i])
+		printf("%s ", argv[i++]);
 	return (0);
 }

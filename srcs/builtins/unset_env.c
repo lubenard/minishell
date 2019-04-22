@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/03/21 17:54:20 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/22 16:51:09 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@ char		*extract_params(char *command)
 {
 	int		i;
 	int		e;
-	char	*ret;
 
 	i = 0;
-	while (command[i] != ' ')
+	e = 0;
+	while (command[i] && command[i] != ' ')
 		++i;
 	while (command[i] == ' ')
 		++i;
-	e = i;
-	while (command[e])
+	while (command[i + e])
 		++e;
-	ret = ft_strsub(command, i, e);
-	return (ret);
+	return (ft_strsub(command, i, e));
 }
 
 void		unset_env(t_env *lkd_env, char *command)
@@ -37,14 +35,21 @@ void		unset_env(t_env *lkd_env, char *command)
 	char	*to_remove;
 
 	i = 0;
-	to_remove = extract_params(command);
+	if (ft_strchr(command, '='))
+		to_remove = extract_params(command);
+	else
+		to_remove = extract_first_env(command, 1);
 	while (lkd_env->next)
 	{
 		while (lkd_env->env_line[i] != '=')
 			++i;
 		to_extract = ft_strsub(lkd_env->env_line, 0, i);
 		if (ft_strcmp(to_extract, to_remove) == 0)
+		{
 			lkd_env->prev->next = lkd_env->next;
+			free(to_extract);
+			break ;
+		}
 		free(to_extract);
 		i = 0;
 		lkd_env = lkd_env->next;

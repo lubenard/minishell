@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/03/21 15:26:49 by lubenard         ###   ########.fr        #
+#    Updated: 2019/04/22 14:08:45 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,3 +58,5 @@ fclean: clean
 	@printf "\033[32m[✓]\033[0m\n"
 
 re: fclean all
+
+.PHONY: all re fclean clean lib

@@ -6,20 +6,38 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/21 10:23:47 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/22 16:53:55 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*extract_first_env(char *command)
+char	*extract_first_env(char *command, int mode)
 {
 	int i;
+	int e;
 
 	i = 0;
-	while (command[i] != '=' && command[i])
-		++i;
-	return (ft_strsub(command, 0, i));
+	e = 0;
+	if (mode == 0)
+	{
+		while (command[i] != '=' && command[i])
+			++i;
+		return (ft_strsub(command, 0, i));
+	}
+	else if (mode == 1)
+	{
+		while (command[i] && command[i] != ' ')
+			++i;
+		while (command[i] == ' ')
+			++i;
+		while (command[i + e] && command[i + e] != '=')
+			++e;
+		if (e == 0)
+			return (ft_strdup(command));
+		return (ft_strsub(command, i, e));
+	}
+	return (NULL);
 }
 
 void	set_env(t_env *lkd_env, char *command)
@@ -29,20 +47,28 @@ void	set_env(t_env *lkd_env, char *command)
 	char	*to_extract;
 	char	*to_search;
 
-	to_search = extract_first_env(command);
+	if (ft_strchr(command, '=') == 0)
+		return ;
+	to_search = extract_first_env(command, 1);
 	to_add = extract_params(command);
 	while (lkd_env->next)
 	{
-		to_extract = extract_first_env(lkd_env->env_line);
-		printf("lkd_env->env_line = %s\nto_search = %s\nBRUH = %d\n",to_extract,to_search,ft_strcmp(to_extract, to_add));
+		to_extract = extract_first_env(lkd_env->env_line, 0);
 		if (ft_strcmp(to_extract, to_search) == 0)
-			unset_env(lkd_env, to_add);
+		{
+			free(to_extract);
+			unset_env(lkd_env, to_search);
+			while (lkd_env)
+				lkd_env = lkd_env->next;
+			break ;
+		}
 		lkd_env = lkd_env->next;
 		free(to_extract);
 	}
 	free(to_search);
-	free(to_add);
 	new_element = new_maillon();
 	lkd_env->next = new_element;
-	ft_strcpy(lkd_env->env_line, to_add);
+	lkd_env->next->prev = lkd_env;
+	ft_strcpy(lkd_env->next->env_line, to_add);
+	free(to_add);
 }
