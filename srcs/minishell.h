@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/22 14:31:54 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:25:05 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ char				*extract_params(char *command);
 char				*extract_command(char *command);
 char				*find_path(char **env);
 char				*find_name(char **env);
-char				*find_cur_dir(char **env);
+char				*find_cur_dir(t_env *lkd_env);
 char				**compact_env(t_env *lkd_env);
 char				*extract_first_env(char *command, int mode);
+void				write_prompt(char *cur_name, char *cur_dir);
 /*
 ** Builtins
 */

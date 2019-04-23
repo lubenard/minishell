@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/22 17:14:04 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/23 13:39:36 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		unset_env(t_env *lkd_env, char *command)
 	char	*to_remove;
 
 	i = 0;
-	printf("a remove %s\n", command);
 	if (ft_strchr(command, '='))
 		to_remove = extract_params(command);
 	else

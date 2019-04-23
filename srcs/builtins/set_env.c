@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/22 17:18:10 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:37:01 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*extract_first_env(char *command, int mode)
 void	set_env(t_env *lkd_env, char *command)
 {
 	t_env	*new_element;
+	t_env	*tmp;
 	char	*to_add;
 	char	*to_extract;
 	char	*to_search;
@@ -51,20 +52,30 @@ void	set_env(t_env *lkd_env, char *command)
 		return ;
 	to_search = extract_first_env(command, 1);
 	to_add = extract_params(command);
-	while (lkd_env->next)
+	while (lkd_env)
 	{
 		to_extract = extract_first_env(lkd_env->env_line, 0);
 		if (ft_strcmp(to_extract, to_search) == 0)
 		{
 			free(to_extract);
 			unset_env(lkd_env, to_search);
+			while (lkd_env->prev)
+				lkd_env = lkd_env->prev;
 			while (lkd_env)
+			{
+				if (!lkd_env->next)
+					tmp = lkd_env;
 				lkd_env = lkd_env->next;
+			}
 			break ;
 		}
+		if (!lkd_env->next)
+			tmp = lkd_env;
 		lkd_env = lkd_env->next;
 		free(to_extract);
 	}
+	if (!lkd_env)
+		lkd_env = tmp;
 	free(to_search);
 	new_element = new_maillon();
 	lkd_env->next = new_element;

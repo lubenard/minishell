@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/22 15:14:48 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:15:14 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,28 @@ char	**compact_env(t_env *lkd_env)
 
 int		execute_command(char *get_right_path, char *command,char **argv, char **env)
 {
+	pid_t process;
 	(void)get_right_path;
 	(void)env;
+	int status;
+	pid_t wait_result;
+
+	process = fork();
+	if (process < 0)
+		return (0);
+	if (process == 0)
+	{
+		argv[0] = "ls";
+		execv(argv[0], argv);
+		return (2);
+	}
+
+	while ((wait_result = wait(&status)) != -1)
+	{
+		printf("Process %lu returned result: %d\n", (unsigned long) wait_result, status);
+	}
+    printf("All children have finished.\n");
+
 	printf("Command is '%s', argv are: \n", command);
 	int i = 0;
 	while (argv[i])
