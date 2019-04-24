@@ -3,70 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_whitespaces.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 20:46:47 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/22 15:14:26 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:34:16 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include <stdio.h>
-
-int		countwords(char *str, int i)
-{
-	int nbrmots;
-
-	nbrmots = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] > 32 && str[i + 1] < 33)
-			nbrmots++;
-		i++;
-	}
-	return (nbrmots);
-}
-
 int		count_char(char *str, int i)
 {
-	int nbrchar;
+	int j;
 
-	nbrchar = 0;
-	while (str[i] != ' ')
+	j = 0;
+	while (str[i])
 	{
-		nbrchar++;
+		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+			return (j);
 		i++;
+		j++;
 	}
-	return (nbrchar);
+	return (j);
 }
 
-char	**ft_split_whitespaces(char *str, int i)
+int		countwords(char *str)
+{
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
+	if (str[i] != 0)
+		k++;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		{
+			while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+				i++;
+			if (str[i] != 0)
+				k++;
+		}
+		i++;
+	}
+	return (k);
+}
+
+char	**ft_split_whitespaces(char *str)
 {
 	char	**tab;
+	int		i;
 	int		k;
 	int		j;
-	int		i2;
 
-	i2 = i;
+	i = 0;
 	j = 0;
-	tab = (char **)malloc(sizeof(char) * (countwords(str, i) + 1));
-	printf("There is %d elements\n", countwords(str, i));
-	while (str[i] && j < countwords(str, i2))
+	tab = (char **)malloc((countwords(str) + 1) * sizeof(char *));
+	while (str[i] && j < countwords(str))
 	{
 		k = 0;
-		while (str[i] < 33)
-		{
-			printf("Je passe %c\n", str[i]);
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
 			i++;
-		}
-		printf("Je malloc de %d chars\n", count_char(str, i));
-		tab[j] = ft_strnew(count_char(str, i));
-		while (str[i] > 32 && str[i])
-		{
-			printf("Je copie str[i] = %c\n", str[i]);
+		tab[j] = (char *)malloc((count_char(str, i) + 1) * sizeof(char));
+		while (str[i] != ' ' && str[i] != '\n' && str[i] != '\t' && str[i])
 			tab[j][k++] = str[i++];
-		}
+		tab[j++][k] = 0;
 	}
 	tab[j] = 0;
 	return (tab);

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/23 19:29:02 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:56:25 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	write_prompt(char *cur_name, char *cur_dir)
 	ft_putstr("\033[0m >  ");
 }
 
-void	main_loop(char **env, t_env *lkd_env)
+void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 {
 	char	*cur_name;
 	char	*cur_dir;
@@ -44,7 +44,14 @@ void	main_loop(char **env, t_env *lkd_env)
 	cur_name = find_name(env);
 	write_prompt(cur_name, cur_dir);
 	path = get_path(find_path(env));
-	get_next_line(0, &command);
+	if (ext_command == NULL)
+		get_next_line(0, &command);
+	else
+	{
+		command = ft_strdup(ext_command);
+		ft_putstr(ext_command);
+		ft_putstr("\n");
+	}
 	get_command(command, path, lkd_env);
 	while (ft_strcmp(command, "exit") != 0)
 	{
@@ -62,7 +69,6 @@ void	main_loop(char **env, t_env *lkd_env)
 int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
-	(void)argv;
-	main_loop(env, get_env(env));
+	main_loop(env, get_env(env), argv[1]);
 	return (0);
 }

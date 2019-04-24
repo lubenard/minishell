@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:36:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/20 23:32:41 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:20:14 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char			*ft_strndup(const char *s, size_t n);
 int				get_next_line(const int fd, char **line);
 int				ft_isblank(char *str);
-char			**ft_split_whitespaces(char *str, int i);
+char			**ft_split_whitespaces(char *str);
 
 #endif

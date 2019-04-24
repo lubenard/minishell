@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/20 23:37:52 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:39:54 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	error(char *command)
 {
-	ft_putstr("Error: ");
-	ft_putstr(command);
-	ft_putstr(" : command not found ¯\\_(ツ)_/¯\n");
+	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd(command, 2);
+	ft_putstr_fd(" : command not found ¯\\_(ツ)_/¯\n", 2);
 }
 
 char	*extract_command(char *command)
@@ -40,27 +40,7 @@ int		count_args(char *command, int i)
 			nbr_args++;
 		i++;
 	}
-	return(nbr_args);
-}
-
-char	**extract_argv(char *command)
-{
-	char	**argv;
-	int		i;
-
-	i = 0;
-	while (command[i] && command[i] != ' ')
-		i++;
-	while (command[i] && command[i] == ' ')
-		i++;
-	argv = ft_split_whitespaces(command, i);
-	int k = 0;
-	while (argv[k])
-	{
-		printf("argv[%d] = %s\n", k, argv[k]);
-		k++;
-	}
-	return (argv);
+	return (nbr_args);
 }
 
 void	free_lkd_env(t_env *lkd_env)
@@ -97,7 +77,8 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 				cd(lkd_env, command);
 			else if ((get_right_path = external_command(path, first_command))
 				!= NULL)
-				execute_command(get_right_path, extract_command(command), extract_argv(command), compact_env(lkd_env));
+				execute_command(get_right_path, extract_command(command),
+					ft_split_whitespaces(command), compact_env(lkd_env));
 			else
 				error(first_command);
 			free(first_command);
