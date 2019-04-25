@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lubenard <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/04/20 23:30:52 by lubenard         ###   ########.fr        #
+#    Updated: 2019/04/25 16:32:07 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,8 @@ SRC = ft_memset.c \
 	ft_strndup.c \
 	get_next_line.c \
 	ft_isblank.c \
+	ft_strupper.c \
+	ft_strlower.c \
 	ft_split_whitespaces.c
 
 OBJ = $(SRC:.c=.o)

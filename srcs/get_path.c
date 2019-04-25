@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/23 19:16:19 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:17:57 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,13 @@ char	*find_name(char **env)
 	return (ft_strsub(env[i], 5, 50));
 }
 
-char	*find_path(char **env)
+char	*find_path(t_env *lkd_env)
 {
-	int i;
-
-	i = 0;
-	while (env[i])
+	while (lkd_env)
 	{
-		if (ft_strncmp("PATH", env[i], 3) == 0)
-			return (env[i]);
-		i++;
+		if (ft_strncmp("PATH", lkd_env->env_line, 3) == 0)
+			return (lkd_env->env_line);
+		lkd_env = lkd_env->next;
 	}
 	return (NULL);
 }
@@ -74,11 +71,13 @@ char	**get_path(char *path_line)
 	i = 0;
 	j = 5;
 	k = 0;
+	if (path_line == NULL)
+		return (NULL);
 	if (!(path = (char **)malloc(sizeof(char *) * (ft_len(path_line) + 1))))
 		return (NULL);
 	while (k < ft_len(path_line))
 	{
-		while (path_line[j + i] != ':')
+		while (path_line[i + j] && path_line[j + i] != ':')
 			++i;
 		tmp = ft_strsub(path_line, j, i);
 		path[k] = ft_strjoin(tmp, "/");

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/24 14:39:54 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 17:45:57 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,22 @@ void	error(char *command)
 char	*extract_command(char *command)
 {
 	int i;
+	int e;
 
 	i = 0;
+	e = 0;
+	if (command[0] == '/' && command[1])
+	{
+		i = ft_strlen(command);
+		while (command[i] != '/')
+			i--;
+		while (command[i + e] && command[i + e] != ' ')
+			e++;
+		return (ft_strlower(ft_strsub(command, i + 1, e - 1)));
+	}
 	while (command[i] != ' ' && command[i])
 		++i;
-	return (ft_strsub(command, 0, i));
+	return (ft_strlower(ft_strsub(command, 0, i)));
 }
 
 int		count_args(char *command, int i)
@@ -52,7 +63,7 @@ void	free_lkd_env(t_env *lkd_env)
 		tmp = lkd_env;
 		lkd_env = lkd_env->next;
 		free(tmp);
-	}
+		}
 }
 
 void	get_command(char *command, char **path, t_env *lkd_env)
@@ -66,7 +77,7 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 		{
 			first_command = extract_command(command);
 			if (ft_strcmp(first_command, "echo") == 0)
-				echo(command);
+				echo(lkd_env, command);
 			else if (ft_strcmp(first_command, "env") == 0)
 				print_env(lkd_env);
 			else if (ft_strcmp(first_command, "setenv") == 0)

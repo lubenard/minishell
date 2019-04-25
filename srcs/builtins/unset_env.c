@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/23 13:39:36 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:55:00 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void		unset_env(t_env *lkd_env, char *command)
 	int		i;
 	char	*to_remove;
 
-	i = 0;
 	if (ft_strchr(command, '='))
 		to_remove = extract_params(command);
 	else
 		to_remove = extract_first_env(command, 1);
 	while (lkd_env)
 	{
+		i = 0;
 		while (lkd_env->env_line[i] != '=')
 			++i;
 		to_extract = ft_strsub(lkd_env->env_line, 0, i);
@@ -48,10 +48,10 @@ void		unset_env(t_env *lkd_env, char *command)
 		{
 			lkd_env->prev->next = lkd_env->next;
 			free(to_extract);
+			free(lkd_env);
 			break ;
 		}
 		free(to_extract);
-		i = 0;
 		lkd_env = lkd_env->next;
 	}
 	free(to_remove);

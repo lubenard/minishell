@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:36:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/24 12:20:14 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:32:34 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int				ft_strnequ(char const *s1, char const *s2, size_t n);
 int				ft_occur(char const *s, char c);
 int				ft_countwords(char const *s);
 int				ft_sqrt(int nb);
+int				ft_isblank(char *str);
 char			*ft_strdup(char const *s);
 char			*ft_strcpy(char *dest, char const *src);
 char			*ft_strncpy(char *dest, char const *src, unsigned int n);
@@ -88,13 +89,14 @@ char			**ft_strsplit(char const *s, char c);
 char			*ft_strtrim(char const *s);
 char			*ft_fill(char *s, char c);
 char			*ft_realloc(char *str, int size);
+char			*ft_strndup(const char *s, size_t n);
 size_t			ft_strlcat(char *dest, char const *src, size_t n);
 size_t			ft_strlen(char const *s);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-char			*ft_strndup(const char *s, size_t n);
 int				get_next_line(const int fd, char **line);
-int				ft_isblank(char *str);
+char 			*ft_strlower(char *str);
+char			*ft_strupper(char *str);
 char			**ft_split_whitespaces(char *str);
 
 #endif

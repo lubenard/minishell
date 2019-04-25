@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/04/22 14:08:45 by lubenard         ###   ########.fr        #
+#    Updated: 2019/04/25 15:48:27 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ $(NAME): $(OBJ)
 	@$(CC) -o $(NAME) $(CFLAGS) $(OBJ) libft/libft.a
 	@printf "\033[33mCompilation de $(NAME)...\033[0m"
 	@printf "\033[32m[✓]\033[0m\n"
+
+libft:
+	@cd libft && make
 
 %.o : %.c
 	@printf "\033[36mCompilation de $<...\033[0m"

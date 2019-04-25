@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/24 14:55:25 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:03:50 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 char	*search_absolute_path(char *command)
 {
+	int		length;
+
 	if (access(command, F_OK) != -1)
-		return (command);
+	{
+		length = ft_strlen(command);
+		while (command[length] != '/')
+			length--;
+		return (ft_strndup(command, length + 1));
+	}
 	else
 		return (NULL);
 }
@@ -27,20 +34,19 @@ char	*external_command(char **path, char *first_command)
 	DIR				*pDir;
 
 	i = 0;
+	if (path == NULL)
+		return (NULL);
 	if (first_command[0] == '/' || (first_command[0] == '.' && first_command[1] == '.'))
 		return (search_absolute_path(first_command));
 	while (path[i+1])
 	{
 		pDir = opendir(path[i]);
-//		printf("J'explore %s\n", path[i]);
 		while ((pDirent = readdir(pDir)) != NULL)
 		{
-//			printf("Je regarde ce fichier: %s\n", pDirent->d_name);
 			if (ft_strcmp(pDirent->d_name, first_command) == 0)
 			{
-//				printf(">>>>>>>>>>>>>>>>>>>>>>>>>>Found it\n");
 				closedir(pDir);
-				return (path[i]);
+				return (ft_strdup(path[i]));
 			}
 		}
 		closedir(pDir);
@@ -62,17 +68,16 @@ char	**compact_env(t_env *lkd_env)
 		i++;
 		lkd_env = lkd_env->next;
 	}
-//	printf("%d elements\n", i);
 	if (!(env = (char **)malloc(sizeof(char *) * (i + 1))))
 		return (NULL);
 	i = 0;
 	while (tmp)
 	{
 		env[i] = tmp->env_line;
-//		printf("env[%d] vaut mtn %s\n", i, env[i]);
 		tmp = tmp->next;
 		i++;
 	}
+	env[i] = NULL;
 	return (env);
 }
 
@@ -97,20 +102,19 @@ int		execute_command(char *get_right_path, char *command, char **argv, char **en
 			printf("Argv are %s\n", argv[i++]);
 		i = 0;
 		while (env[i])
-			printf("env are %s\n", env[i++]); */
+			printf("env are %s\n", env[i++]);*/
 		ft_strcpy(path, get_right_path);
 		status = execve(ft_strcat(path, command), argv, env);
 	}
 	while ((wait_result = wait(&status)) == -1)
 	{
-		//printf("Process %lu returned result: %d\n", (unsigned long) wait_result, status);
 		printf("an error happened\n");
 		break ;
 	}
-//	printf("All children have finished.\n");
 	i = 0;
 	while (argv[i])
 		free(argv[i++]);
+	free(get_right_path);
 	free(argv);
 	free(env);
 	free(command);

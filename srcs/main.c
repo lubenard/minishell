@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/24 13:56:25 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 18:14:41 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	free_prompt(char *cur_name, char *cur_dir, char **path)
 	i = 0;
 	free(cur_name);
 	free(cur_dir);
-	while (path[i][0] != '\0')
-		free(path[i++]);
-	free(path);
+	if (path)
+	{
+		while (path[i][0] != '\0')
+			free(path[i++]);
+		free(path);
+	}
 }
 
 void	write_prompt(char *cur_name, char *cur_dir)
@@ -43,7 +46,7 @@ void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 	cur_dir = find_cur_dir(lkd_env);
 	cur_name = find_name(env);
 	write_prompt(cur_name, cur_dir);
-	path = get_path(find_path(env));
+	path = get_path(find_path(lkd_env));
 	if (ext_command == NULL)
 		get_next_line(0, &command);
 	else
@@ -57,6 +60,7 @@ void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 	{
 		free(command);
 		free(cur_dir);
+		path = get_path(find_path(lkd_env));
 		cur_dir = find_cur_dir(lkd_env);
 		write_prompt(cur_name, cur_dir);
 		get_next_line(0, &command);

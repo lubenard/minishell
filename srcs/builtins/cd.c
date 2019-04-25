@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/24 14:45:15 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:42:52 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*find_home_path(t_env *lkd_env)
 		}
 		lkd_env = lkd_env->next;
 	}
-	return (ft_strdup("~#"));
+	return (ft_strdup("/"));
 }
 
 void	change_dir(t_env *lkd_env, char *path)
@@ -72,8 +72,12 @@ void	change_dir(t_env *lkd_env, char *path)
 	char buff_dir2[4097];
 	char *new_dir;
 
-	if (ft_strcmp(path, "~/") == 0 || ft_strcmp(path, "") == 0)
+	if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
+		|| !ft_strcmp(path, "~/"))
+	{
+		free(path);
 		path = find_home_path(lkd_env);
+	}
 	curr_dir = getcwd(buff_dir, 4096);
 	if (chdir(path) != 0)
 	{
