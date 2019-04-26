@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 18:14:41 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:52:10 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 	while (ft_strcmp(command, "exit") != 0)
 	{
 		free(command);
-		free(cur_dir);
+		free_prompt(ft_strdup(""), cur_dir, path);
 		path = get_path(find_path(lkd_env));
 		cur_dir = find_cur_dir(lkd_env);
 		write_prompt(cur_name, cur_dir);

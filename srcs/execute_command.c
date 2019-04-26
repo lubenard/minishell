@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 18:03:50 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 10:41:13 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ char	*external_command(char **path, char *first_command)
 	DIR				*pDir;
 
 	i = 0;
+	if (first_command[0] == '/' || (first_command[0] == '.' && first_command[1] == '/'))
+		return (search_absolute_path(first_command));
 	if (path == NULL)
 		return (NULL);
-	if (first_command[0] == '/' || (first_command[0] == '.' && first_command[1] == '.'))
-		return (search_absolute_path(first_command));
-	while (path[i+1])
+	while (path[i + 1])
 	{
 		pDir = opendir(path[i]);
 		while ((pDirent = readdir(pDir)) != NULL)
@@ -81,6 +81,28 @@ char	**compact_env(t_env *lkd_env)
 	return (env);
 }
 
+char	*reduce_command(char *command)
+{
+	int i;
+	int e;
+	char *ret;
+
+	i = 0;
+	e = 0;
+	if (command[0] == '/' && command[1])
+	{
+		i = ft_strlen(command);
+		while (command[i] != '/')
+			i--;
+		while (command[i + e] && command[i + e] != ' ')
+			e++;
+		ret = ft_strlower(ft_strsub(command, i + 1, e - 1));
+		free(command);
+		return (ret);
+	}
+	return (NULL);
+}
+
 int		execute_command(char *get_right_path, char *command, char **argv, char **env)
 {
 	pid_t process;
@@ -90,12 +112,14 @@ int		execute_command(char *get_right_path, char *command, char **argv, char **en
 	char path[6000];
 
 	i = 0;
+	if (command[0] == '/' || command[0] == '.')
+		command = reduce_command(command);
 	process = fork();
 	if (process < 0)
 		return (0);
 	if (process == 0)
 	{
-/*		printf(">>>>>>>> Je lance mon process\n");
+	/*	printf(">>>>>>>> Je lance mon process\n");
 		printf("Ma commande est %s\n", command);
 		printf("mon get_right_path est %s\n", get_right_path);
 		while (argv[i])

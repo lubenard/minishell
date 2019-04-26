@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 17:45:57 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 10:34:15 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ char	*extract_command(char *command)
 
 	i = 0;
 	e = 0;
-	if (command[0] == '/' && command[1])
-	{
-		i = ft_strlen(command);
-		while (command[i] != '/')
-			i--;
-		while (command[i + e] && command[i + e] != ' ')
-			e++;
-		return (ft_strlower(ft_strsub(command, i + 1, e - 1)));
-	}
 	while (command[i] != ' ' && command[i])
 		++i;
 	return (ft_strlower(ft_strsub(command, 0, i)));
