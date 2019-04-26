@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 16:42:52 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:43:51 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*extract_path(char *command)
 	int i;
 	int e;
 
+	if (!ft_strcmp(command, ".."))
+		return (ft_strdup(".."));
 	i = 2;
 	e = 0;
 	while (command[i] == ' ')
@@ -65,6 +67,17 @@ char	*find_home_path(t_env *lkd_env)
 	return (ft_strdup("/"));
 }
 
+char	*handle_sortcut(t_env *lkd_env, char *path)
+{
+	if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
+		|| !ft_strcmp(path, "~/"))
+	{
+		free(path);
+		path = find_home_path(lkd_env);
+	}
+	return (path);
+}
+
 void	change_dir(t_env *lkd_env, char *path)
 {
 	char *curr_dir;
@@ -72,13 +85,8 @@ void	change_dir(t_env *lkd_env, char *path)
 	char buff_dir2[4097];
 	char *new_dir;
 
-	if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
-		|| !ft_strcmp(path, "~/"))
-	{
-		free(path);
-		path = find_home_path(lkd_env);
-	}
 	curr_dir = getcwd(buff_dir, 4096);
+	path = handle_sortcut(lkd_env, path);
 	if (chdir(path) != 0)
 	{
 		if (access(path, F_OK) == -1)

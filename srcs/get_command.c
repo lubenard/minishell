@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 10:34:15 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:29:22 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ char	*extract_command(char *command)
 
 	i = 0;
 	e = 0;
-	while (command[i] != ' ' && command[i])
+	while (command[e] == ' ')
+		e++;
+	while (command[e + i] != ' ' && command[e + i])
 		++i;
-	return (ft_strlower(ft_strsub(command, 0, i)));
+	return (ft_strlower(ft_strsub(command, e, i)));
 }
 
 int		count_args(char *command, int i)
@@ -54,7 +56,7 @@ void	free_lkd_env(t_env *lkd_env)
 		tmp = lkd_env;
 		lkd_env = lkd_env->next;
 		free(tmp);
-		}
+	}
 }
 
 void	get_command(char *command, char **path, t_env *lkd_env)
@@ -67,15 +69,15 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 		if (ft_isblank(command) != -1)
 		{
 			first_command = extract_command(command);
-			if (ft_strcmp(first_command, "echo") == 0)
+			if (!ft_strcmp(first_command, "echo"))
 				echo(lkd_env, command);
-			else if (ft_strcmp(first_command, "env") == 0)
+			else if (!ft_strcmp(first_command, "env"))
 				print_env(lkd_env);
-			else if (ft_strcmp(first_command, "setenv") == 0)
+			else if (!ft_strcmp(first_command, "setenv"))
 				set_env(lkd_env, command);
-			else if (ft_strcmp(first_command, "unsetenv") == 0)
+			else if (!ft_strcmp(first_command, "unsetenv"))
 				unset_env(lkd_env, command);
-			else if (ft_strcmp(first_command, "cd") == 0)
+			else if (!ft_strcmp(first_command, "cd") || !ft_strcmp(first_command, ".."))
 				cd(lkd_env, command);
 			else if ((get_right_path = external_command(path, first_command))
 				!= NULL)

@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:36:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 16:32:34 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 17:23:42 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ int				get_next_line(const int fd, char **line);
 char 			*ft_strlower(char *str);
 char			*ft_strupper(char *str);
 char			**ft_split_whitespaces(char *str);
+char			*ft_strnncpy(char *dest, char const *src, unsigned int i, unsigned int n);
 
 #endif

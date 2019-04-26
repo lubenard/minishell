@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   ft_strnncpy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/15 16:15:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 11:10:06 by lubenard         ###   ########.fr       */
+/*   Created: 2018/11/07 13:48:27 by lubenard          #+#    #+#             */
+/*   Updated: 2019/04/26 17:33:22 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	print_env(t_env *lkd_env)
+char	*ft_strnncpy(char *dest, char const *src, unsigned int i, unsigned int n)
 {
-	while (lkd_env)
+	int k;
+
+	k = 0;
+	while (src[i] && i < n)
 	{
-		ft_putstr(lkd_env->env_line);
-		ft_putchar('\n');
-		lkd_env = lkd_env->next;
+		dest[k] = src[i];
+		i++;
+		k++;
 	}
+	while (i < n)
+	{
+		dest[k++] = '\0';
+		k++;
+		i++;
+	}
+	return (dest);
 }

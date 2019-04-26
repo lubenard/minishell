@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 18:17:57 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:59:02 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ char	**get_path(char *path_line)
 		i = 0;
 		++k;
 	}
-	path[k] = "\0";
+	path[k] = NULL;
 	return (path);
 }

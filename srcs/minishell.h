@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 18:00:41 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/26 17:54:05 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "../libft/libft.h"
 # include <dirent.h>
 # include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include <stdio.h>
 
