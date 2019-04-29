@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/29 14:36:02 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:56:58 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,37 @@ void	change_env_cd(t_env *lkd_env, char *old_pwd, char *new_pwd)
 	}
 }
 
+int		get_shortcut_path(t_env *lkd_env, char **spec_path, char *path)
+{
+	int		i;
+	char	*str;
+	char	*str2;
+
+	i = 0;
+	if (path[0] == '~' && path[1] == '/' && ft_strlen(path) > 2)
+	{
+		while (path[2 + i])
+			i++;
+		str = ft_strsub(path, 2, i);
+		free(path);
+		path = find_in_env(lkd_env, ft_strdup("HOME"));
+		str2 = ft_strjoin(path, "/");
+		*spec_path = ft_strjoin(str2, str);
+		free(str);
+		free(str2);
+		return (0);
+	}
+	return (1);
+}
+
 char	*handle_sortcut(t_env *lkd_env, char *path)
 {
-	if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
+	char *spec_path;
+
+
+	if (!get_shortcut_path(lkd_env, &spec_path, path))
+		return (spec_path);
+	else if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
 		|| !ft_strcmp(path, "~/"))
 	{
 		free(path);
