@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/29 16:14:43 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:08:14 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,17 @@ int		execute_command(char *get_right_path, char *command,
 	if (command[0] == '/' || (command[0] == '.' && command[1] == '/'))
 		command = reduce_command(command);
 	process = fork();
+	signal(SIGINT, handle_signals_proc);
 	if (process < 0)
 		return (0);
 	if (process == 0)
 	{
 		ft_strcpy(path, get_right_path);
-		printf("Launch signal\n");
-		signal(SIGINT, handle_signals);
-		printf("signal launched\n");
 		execve(ft_strcat(path, command), argv, env);
 	}
 	while ((wait_result = wait(&process)) == -1)
 	{
-		printf("%s An error happened\n", command);
+		ft_putstr("An error happened\n");
 		break ;
 	}
 	i = 0;

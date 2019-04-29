@@ -6,19 +6,22 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/29 16:13:33 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/29 23:54:59 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_prompt(char *cur_name, char *cur_dir, char **path)
+char	*username;
+char	*curr_dir;
+
+void	free_prompt(char *username, char *curr_dir, char **path)
 {
 	int		i;
 
 	i = 0;
-	free(cur_name);
-	free(cur_dir);
+	free(username);
+	free(curr_dir);
 	if (path)
 	{
 		while (path[i])
@@ -27,26 +30,25 @@ void	free_prompt(char *cur_name, char *cur_dir, char **path)
 	}
 }
 
-void	write_prompt(char *cur_name, char *cur_dir)
+void	write_prompt(char *username, char *curr_dir)
 {
 	ft_putstr("\033[31m");
-	ft_putstr(cur_name);
+	ft_putstr(username);
 	ft_putstr("\033[0m - \033[36m");
-	ft_putstr(cur_dir);
+	ft_putstr(curr_dir);
 	ft_putstr("\033[0m >  ");
 }
 
 void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 {
-	char	*cur_name;
-	char	*cur_dir;
 	char	*command;
 	char	**path;
 
-	cur_dir = find_cur_dir(lkd_env);
-	cur_name = find_name(env);
-	write_prompt(cur_name, cur_dir);
+	curr_dir = find_cur_dir(lkd_env);
+	username = find_name(env);
+	write_prompt(username, curr_dir);
 	path = get_path(find_path(lkd_env));
+	signal(SIGINT, handle_signals);
 	if (ext_command == NULL)
 		get_next_line(0, &command);
 	else
@@ -58,14 +60,14 @@ void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 	while (ft_strcmp(command, "exit") != 0)
 	{
 		free(command);
-		free_prompt(ft_strdup(""), cur_dir, path);
+		free_prompt(ft_strdup(""), curr_dir, path);
 		path = get_path(find_path(lkd_env));
-		cur_dir = find_cur_dir(lkd_env);
-		write_prompt(cur_name, cur_dir);
+		curr_dir = find_cur_dir(lkd_env);
+		write_prompt(username, curr_dir);
 		get_next_line(0, &command);
 		get_command(command, path, lkd_env);
 	}
-	free_prompt(cur_name, cur_dir, path);
+	free_prompt(username, curr_dir, path);
 	free(command);
 }
 

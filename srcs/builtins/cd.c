@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/29 16:56:58 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:12:14 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		get_shortcut_path(t_env *lkd_env, char **spec_path, char *path)
 		*spec_path = ft_strjoin(str2, str);
 		free(str);
 		free(str2);
+		free(path);
 		return (0);
 	}
 	return (1);
