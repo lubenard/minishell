@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 14:31:25 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:14:43 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int		execute_command(char *get_right_path, char *command,
 	char **argv, char **env)
 {
 	pid_t	process;
-	int		status;
 	pid_t	wait_result;
 	int		i;
 	char	path[6000];
@@ -122,9 +121,12 @@ int		execute_command(char *get_right_path, char *command,
 	if (process == 0)
 	{
 		ft_strcpy(path, get_right_path);
-		status = execve(ft_strcat(path, command), argv, env);
+		printf("Launch signal\n");
+		signal(SIGINT, handle_signals);
+		printf("signal launched\n");
+		execve(ft_strcat(path, command), argv, env);
 	}
-	while ((wait_result = wait(&status)) == -1)
+	while ((wait_result = wait(&process)) == -1)
 	{
 		printf("%s An error happened\n", command);
 		break ;

@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/04/25 15:48:27 by lubenard         ###   ########.fr        #
+#    Updated: 2019/04/29 14:30:13 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC = srcs/main.c \
 	  srcs/get_env.c \
 	  srcs/execute_command.c \
 	  srcs/get_path.c \
+	  srcs/handle_signals.c \
 	  srcs/builtins/echo.c \
 	  srcs/builtins/print_env.c \
 	  srcs/builtins/set_env.c \

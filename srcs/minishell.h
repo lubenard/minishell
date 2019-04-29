@@ -6,19 +6,20 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 17:54:05 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:01:16 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
 # include "../libft/libft.h"
-# include <dirent.h>
 # include <sys/wait.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <signal.h>
 
 #include <stdio.h>
 
@@ -43,6 +44,8 @@ char				*find_cur_dir(t_env *lkd_env);
 char				**compact_env(t_env *lkd_env);
 char				*extract_first_env(char *command, int mode);
 void				write_prompt(char *cur_name, char *cur_dir);
+void				handle_signals(int signal);
+char				*find_in_env(t_env *lkd_env, char *to_find);
 /*
 ** Builtins
 */

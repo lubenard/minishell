@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 14:43:51 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/29 14:36:02 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,18 @@ void	change_env_cd(t_env *lkd_env, char *old_pwd, char *new_pwd)
 	}
 }
 
-char	*find_home_path(t_env *lkd_env)
-{
-	int e;
-
-	e = 0;
-	while (lkd_env)
-	{
-		if (ft_strncmp(lkd_env->env_line, "HOME", 3) == 0)
-		{
-			while (lkd_env->env_line[5 + e])
-				e++;
-			return (ft_strsub(lkd_env->env_line, 5, e));
-		}
-		lkd_env = lkd_env->next;
-	}
-	return (ft_strdup("/"));
-}
-
 char	*handle_sortcut(t_env *lkd_env, char *path)
 {
 	if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
 		|| !ft_strcmp(path, "~/"))
 	{
 		free(path);
-		path = find_home_path(lkd_env);
+		path = find_in_env(lkd_env, ft_strdup("HOME"));
+	}
+	else if (!ft_strcmp(path, "-"))
+	{
+		free(path);
+		path = find_in_env(lkd_env, ft_strdup("OLDPWD"));
 	}
 	return (path);
 }
