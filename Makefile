@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
+#    By: lubenard <lubenard@student.42.f	r>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/04/29 14:30:13 by lubenard         ###   ########.fr        #
+#    Updated: 2019/04/30 00:42:29 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC = srcs/main.c \
 	  srcs/execute_command.c \
 	  srcs/get_path.c \
 	  srcs/handle_signals.c \
+	  srcs/save_command.c \
 	  srcs/builtins/echo.c \
 	  srcs/builtins/print_env.c \
 	  srcs/builtins/set_env.c \
@@ -60,6 +61,7 @@ fclean: clean
 	@printf "\033[31mFclean de srcs/libft.a...\033[0m\033[32m[✓]\033[0m\n"
 	@printf "\033[31mFclean de $(NAME)...\033[0m"
 	@printf "\033[32m[✓]\033[0m\n"
+	@rm -rf .history
 
 re: fclean all
 

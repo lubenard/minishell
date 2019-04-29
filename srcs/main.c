@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/29 23:54:59 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:49:44 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 		command = ft_strdup(ext_command);
 		ft_putendl(ext_command);
 	}
+	save_command(command);
 	get_command(command, path, lkd_env);
 	while (ft_strcmp(command, "exit") != 0)
 	{
@@ -65,6 +66,7 @@ void	main_loop(char **env, t_env *lkd_env, char *ext_command)
 		curr_dir = find_cur_dir(lkd_env);
 		write_prompt(username, curr_dir);
 		get_next_line(0, &command);
+		save_command(command);
 		get_command(command, path, lkd_env);
 	}
 	free_prompt(username, curr_dir, path);

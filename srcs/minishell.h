@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/29 23:58:46 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 00:24:55 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void				write_prompt(char *cur_name, char *cur_dir);
 void				handle_signals(int signal);
 void				handle_signals_proc(int signal);
 char				*find_in_env(t_env *lkd_env, char *to_find);
+void				save_command(char *command);
 /*
 ** Builtins
 */
