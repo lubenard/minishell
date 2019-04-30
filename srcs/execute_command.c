@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/30 16:42:34 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/01 00:59:22 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,18 @@ char	*reduce_command(char *command)
 	return (NULL);
 }
 
+void	get_error_exec(char path[6000])
+{
+	struct stat filestat;
+
+	if (stat(path, &filestat) < 0)
+		return ;
+	if (!(filestat.st_mode & S_IXUSR))
+		ft_putstr_fd("You do not have execution rights (´ ͡༎ຶ ͜ʖ ͡༎ຶ )\n", 2);
+	else if (!S_ISDIR(filestat.st_mode))
+		ft_putstr_fd("Hum, apparently it's a folder (●__●)\n", 2);
+}
+
 int		execute_command(char *get_right_path, char *command,
 	char **argv, char **env)
 {
@@ -125,10 +137,10 @@ int		execute_command(char *get_right_path, char *command,
 		ft_strcpy(path, get_right_path);
 		execve(ft_strcat(path, command), argv, env);
 	}
-	while ((wait_result = wait(&g_pid)) == -1)
+	if ((wait_result = wait(&g_pid)) == -1)
 	{
-		ft_putstr("An error happened\n");
-		break ;
+		ft_putstr("An error happened: \n");
+		get_error_exec(path);
 	}
 	i = 0;
 	while (argv[i])
