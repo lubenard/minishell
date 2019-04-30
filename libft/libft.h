@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:36:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 17:23:42 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 23:36:02 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ char 			*ft_strlower(char *str);
 char			*ft_strupper(char *str);
 char			**ft_split_whitespaces(char *str);
 char			*ft_strnncpy(char *dest, char const *src, unsigned int i, unsigned int n);
+const char		*ft_conststrjoin(char const *s1, char const *s2);
 
 #endif

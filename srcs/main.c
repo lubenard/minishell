@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/30 14:14:32 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 23:53:35 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 {
 	char	*command;
 	char	**path;
+	char	*get_curr_path;
 
 	g_curr_dir = find_cur_dir(lkd_env);
 	g_username = find_name(env);
+	get_curr_path = find_in_env(lkd_env, ft_strdup("PWD"));
 	write_prompt(g_username, g_curr_dir);
 	path = get_path(find_path(lkd_env));
 	signal(SIGINT, handle_signals);
@@ -56,7 +58,7 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 		command = ft_strdup(argv[1]);
 		ft_putendl(argv[1]);
 	}
-	save_command(command);
+	save_command(command, get_curr_path);
 	get_command(command, path, lkd_env);
 	while (ft_strcmp(command, "exit") != 0)
 	{
@@ -66,11 +68,12 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 		g_curr_dir = find_cur_dir(lkd_env);
 		write_prompt(g_username, g_curr_dir);
 		get_next_line(0, &command);
-		save_command(command);
+		save_command(command, get_curr_path);
 		get_command(command, path, lkd_env);
 	}
 	free_prompt(g_username, g_curr_dir, path);
 	free(command);
+	free(get_curr_path);
 }
 
 int		main(int argc, char **argv, char **env)
