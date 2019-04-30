@@ -1,0 +1,8 @@
+ls
+cd ..
+mkdir test
+cd test
+rm test
+cd ..
+rm -rf test
+cd ..

@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signals.c                                   :+:      :+:    :+:   */
+/*   multiple_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/29 14:21:03 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/30 16:39:32 by lubenard         ###   ########.fr       */
+/*   Created: 2019/04/30 16:44:57 by lubenard          #+#    #+#             */
+/*   Updated: 2019/04/30 16:50:48 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_signals_proc(int sig)
+void	get_multiple_command(char *command)
 {
-	extern pid_t g_pid;
-
-	if (sig == SIGINT)
-		ft_putstr("\n");
-}
-
-void	handle_signals(int sig)
-{
-	extern char *g_curr_dir;
-	extern char *g_username;
-
-	if (sig == SIGINT)
-	{
-		ft_putstr("\n");
-		write_prompt(g_username, g_curr_dir);
-	}
+	(void)command;
+	printf("Je rentre la\n");
 }

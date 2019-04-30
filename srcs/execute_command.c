@@ -6,11 +6,13 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/30 00:08:14 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:42:34 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+pid_t	g_pid;
 
 char	*search_absolute_path(char *command)
 {
@@ -107,7 +109,6 @@ char	*reduce_command(char *command)
 int		execute_command(char *get_right_path, char *command,
 	char **argv, char **env)
 {
-	pid_t	process;
 	pid_t	wait_result;
 	int		i;
 	char	path[6000];
@@ -115,16 +116,16 @@ int		execute_command(char *get_right_path, char *command,
 	i = 0;
 	if (command[0] == '/' || (command[0] == '.' && command[1] == '/'))
 		command = reduce_command(command);
-	process = fork();
+	g_pid = fork();
 	signal(SIGINT, handle_signals_proc);
-	if (process < 0)
+	if (g_pid < 0)
 		return (0);
-	if (process == 0)
+	if (g_pid == 0)
 	{
 		ft_strcpy(path, get_right_path);
 		execve(ft_strcat(path, command), argv, env);
 	}
-	while ((wait_result = wait(&process)) == -1)
+	while ((wait_result = wait(&g_pid)) == -1)
 	{
 		ft_putstr("An error happened\n");
 		break ;
