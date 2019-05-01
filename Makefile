@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.f	r>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/05/01 11:54:44 by lubenard         ###   ########.fr        #
+#    Updated: 2019/05/01 12:57:58 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,4 +67,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all re fclean clean lib
+.PHONY: all re fclean clean libft
