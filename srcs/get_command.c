@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/01 00:09:15 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/01 11:56:23 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 			first_command = extract_command(command);
 			if (!ft_strcmp(first_command, "echo"))
 				echo(lkd_env, command);
-			else if (!ft_strcmp(first_command, "env"))
+			else if (!ft_strcmp(first_command, "env") && !ft_strstr(command, "-i"))
 				print_env(lkd_env);
 			else if (!ft_strcmp(first_command, "setenv"))
 				set_env(lkd_env, command);

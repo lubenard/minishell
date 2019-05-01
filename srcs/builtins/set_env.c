@@ -6,11 +6,18 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/23 14:37:01 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/01 11:24:46 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*error_setenv(void)
+{
+	ft_putstr_fd("setenv: invalid syntax\n", 2);
+	ft_putstr_fd("the correct syntax is t=1\n", 2);
+	return (NULL);
+}
 
 char	*extract_first_env(char *command, int mode)
 {
@@ -23,7 +30,7 @@ char	*extract_first_env(char *command, int mode)
 	{
 		while (command[i] != '=' && command[i])
 			++i;
-		return (ft_strsub(command, 0, i));
+			return (ft_strsub(command, 0, i));
 	}
 	else if (mode == 1)
 	{
@@ -33,6 +40,8 @@ char	*extract_first_env(char *command, int mode)
 			++i;
 		while (command[i + e] && command[i + e] != '=')
 			++e;
+		if (command[i + e - 1] == ' ' || command[i + e + 1] == ' ')
+			return (error_setenv());
 		if (e == 0)
 			return (ft_strdup(command));
 		return (ft_strsub(command, i, e));
@@ -51,6 +60,8 @@ void	set_env(t_env *lkd_env, char *command)
 	if (ft_strchr(command, '=') == 0)
 		return ;
 	to_search = extract_first_env(command, 1);
+	if (!to_search)
+		return ;
 	to_add = extract_params(command);
 	while (lkd_env)
 	{
