@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 17:06:38 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:34:28 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		get_command(char *command, char **path, t_env *lkd_env)
 
 	if (ft_strchr(command, ';'))
 		return (get_multiple_command(command, path, lkd_env));
-	if (ft_strcmp(command, "exit") != 0)
+	if (ft_strncmp(command, "exit", 4) != 0)
 	{
 		if (ft_isblank(command) != -1)
 		{

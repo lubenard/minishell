@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 17:00:08 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:37:07 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	*get_command_from_arg(char **argv, char *command)
 		command = ft_strdup(argv[1]);
 		ft_putendl(argv[1]);
 	}
-	printf("command = '%hhd'\n", command[ft_strlen(command) - 2]);
 	return (command);
 }
 
@@ -69,7 +68,7 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 	command = get_command_from_arg(argv, command);
 	save_command(command, get_curr_path);
 	return_command = get_command(command, path, lkd_env);
-	while (ft_strcmp(command, "exit"))
+	while (ft_strncmp(command, "exit", 4))
 	{
 		if (return_command == 0)
 			break ;

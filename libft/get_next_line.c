@@ -6,13 +6,11 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 11:00:13 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 17:00:28 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 23:22:28 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include <stdio.h>
 
 char			*read_line(char **gnl, char *buf, int fd)
 {
@@ -20,7 +18,7 @@ char			*read_line(char **gnl, char *buf, int fd)
 	int			ret;
 
 	ret = 1;
-	while (!(ft_strchr(*gnl, '\n')) && ret)
+	while (!ft_strchr(*gnl, '\n') && ret)
 	{
 		ret = read(fd, buf, BUFF_SIZE);
 		if (ret)
