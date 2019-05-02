@@ -6,13 +6,13 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 16:44:57 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 13:27:24 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 16:55:09 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_multiple_command(char *command, char **path, t_env *lkd_env)
+int		get_multiple_command(char *command, char **path, t_env *lkd_env)
 {
 	char **tab;
 	int i;
@@ -28,5 +28,7 @@ void	get_multiple_command(char *command, char **path, t_env *lkd_env)
 	while (tab[i])
 		free(tab[i++]);
 	free(tab);
-	return ;
+	if (ft_strstr(command, "exit"))
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/01 11:56:23 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:06:38 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	free_lkd_env(t_env *lkd_env)
 	}
 }
 
-void	get_command(char *command, char **path, t_env *lkd_env)
+int		get_command(char *command, char **path, t_env *lkd_env)
 {
 	char *first_command;
 	char *get_right_path;
@@ -71,7 +71,9 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 		if (ft_isblank(command) != -1)
 		{
 			first_command = extract_command(command);
-			if (!ft_strcmp(first_command, "echo"))
+			if (command[ft_strlen(command) - 2] == 9)
+				autocomplete(path, command);
+			else if (!ft_strcmp(first_command, "echo"))
 				echo(lkd_env, command);
 			else if (!ft_strcmp(first_command, "env") && !ft_strstr(command, "-i"))
 				print_env(lkd_env);
@@ -89,7 +91,9 @@ void	get_command(char *command, char **path, t_env *lkd_env)
 				error(first_command);
 			free(first_command);
 		}
+		return (1);
 	}
 	else
 		free_lkd_env(lkd_env);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 11:00:13 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 12:30:13 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:00:28 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char			*read_line(char **gnl, char *buf, int fd)
 	while (!(ft_strchr(*gnl, '\n')) && ret)
 	{
 		ret = read(fd, buf, BUFF_SIZE);
-		printf("Last char is %hhd\n", buf[ret - 2]);
 		if (ret)
 		{
 			buf[ret] = '\0';

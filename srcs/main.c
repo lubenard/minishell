@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/30 23:53:35 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 17:00:08 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,8 @@ void	write_prompt(char *username, char *curr_dir)
 	ft_putstr("\033[0m >  ");
 }
 
-void	main_loop(char **env, t_env *lkd_env, char **argv)
+char	*get_command_from_arg(char **argv, char *command)
 {
-	char	*command;
-	char	**path;
-	char	*get_curr_path;
-
-	g_curr_dir = find_cur_dir(lkd_env);
-	g_username = find_name(env);
-	get_curr_path = find_in_env(lkd_env, ft_strdup("PWD"));
-	write_prompt(g_username, g_curr_dir);
-	path = get_path(find_path(lkd_env));
-	signal(SIGINT, handle_signals);
 	if (argv[1] == NULL)
 		get_next_line(0, &command);
 	else
@@ -58,10 +48,31 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 		command = ft_strdup(argv[1]);
 		ft_putendl(argv[1]);
 	}
+	printf("command = '%hhd'\n", command[ft_strlen(command) - 2]);
+	return (command);
+}
+
+void	main_loop(char **env, t_env *lkd_env, char **argv)
+{
+	char	*command;
+	char	**path;
+	char	*get_curr_path;
+	int		return_command;
+
+	command = NULL;
+	g_curr_dir = find_cur_dir(lkd_env);
+	g_username = find_name(env);
+	get_curr_path = find_in_env(lkd_env, ft_strdup("PWD"));
+	write_prompt(g_username, g_curr_dir);
+	path = get_path(find_path(lkd_env));
+	signal(SIGINT, handle_signals);
+	command = get_command_from_arg(argv, command);
 	save_command(command, get_curr_path);
-	get_command(command, path, lkd_env);
-	while (ft_strcmp(command, "exit") != 0)
+	return_command = get_command(command, path, lkd_env);
+	while (ft_strcmp(command, "exit"))
 	{
+		if (return_command == 0)
+			break ;
 		free(command);
 		free_prompt(ft_strdup(""), g_curr_dir, path);
 		path = get_path(find_path(lkd_env));
@@ -69,7 +80,7 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 		write_prompt(g_username, g_curr_dir);
 		get_next_line(0, &command);
 		save_command(command, get_curr_path);
-		get_command(command, path, lkd_env);
+		return_command = get_command(command, path, lkd_env);
 	}
 	free_prompt(g_username, g_curr_dir, path);
 	free(command);
