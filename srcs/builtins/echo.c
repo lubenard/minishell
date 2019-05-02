@@ -6,44 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 18:14:39 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 15:57:12 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*find_in_env(t_env *lkd_env, char *to_find)
-{
-	int lenght;
-	int i;
-	int e;
-
-	i = 0;
-	e = 0;
-	lenght = ft_strlen(to_find);
-	while (lkd_env)
-	{
-		if (ft_strncmp(lkd_env->env_line, to_find, lenght) == 0)
-		{
-			while (lkd_env->env_line[i] && lkd_env->env_line[i] != '=')
-				i++;
-			i++;
-			while (lkd_env->env_line[i + e])
-				e++;
-			free(to_find);
-			return (ft_strsub(lkd_env->env_line, i, e));
-		}
-		lkd_env = lkd_env->next;
-	}
-	free(to_find);
-	return (ft_strdup(""));
-}
-
-void	error_echo(char user[33])
-{
-	ft_putstr("lubenash : no such user or directory: ");
-	ft_putstr(user);
-}
 
 int		handle_dollar(t_env *lkd_env, char *command, int i)
 {
@@ -56,7 +23,7 @@ int		handle_dollar(t_env *lkd_env, char *command, int i)
 		i++;
 		while (command[i + e] && command[i + e] != ' ')
 			e++;
-		str = find_in_env(lkd_env, ft_strsub(command, i,e));
+		str = find_in_env(lkd_env, ft_strsub(command, i, e));
 		ft_putstr(str);
 		free(str);
 		return (i += e);
@@ -66,8 +33,8 @@ int		handle_dollar(t_env *lkd_env, char *command, int i)
 
 void	verify_folder(char buffer[4096], char user_name[33])
 {
-	struct stat s;
-	int err;
+	struct stat		s;
+	int				err;
 
 	ft_strcat(buffer, user_name);
 	err = stat(buffer, &s);
@@ -91,6 +58,7 @@ int		handle_tilde(t_env *lkd_env, char *command, int i)
 	int		j;
 
 	ft_bzero(buff, 4096);
+	ft_bzero(user_name, 33);
 	e = 0;
 	if (command[i] == '~' && command[i + 1] != ' ' && command[i + 1])
 	{
@@ -106,12 +74,20 @@ int		handle_tilde(t_env *lkd_env, char *command, int i)
 		return (i + e);
 	}
 	else
-	{
-		str = find_in_env(lkd_env, ft_strdup("HOME"));
-		ft_putstr(str);
-		free(str);
-	}
+		handle_tilde2(lkd_env);
 	return (i + 1);
+}
+
+int		return_i(char *command)
+{
+	int i;
+
+	i = 0;
+	while (command[i] == ' ')
+		i++;
+	while (command[i] && command[i] != ' ')
+		i++;
+	return (++i);
 }
 
 void	echo(t_env *lkd_env, char *command)
@@ -119,12 +95,12 @@ void	echo(t_env *lkd_env, char *command)
 	int e;
 	int i;
 
-	i = 5;
 	e = 0;
+	i = return_i(command);
 	if (ft_strstr(command, "-n") != NULL)
 	{
 		e = 1;
-		i = 8;
+		i += 3;
 	}
 	while (command[i])
 	{

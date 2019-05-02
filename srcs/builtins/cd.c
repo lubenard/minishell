@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/30 00:52:15 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:24:11 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	change_env_cd(t_env *lkd_env, char *old_pwd, char *new_pwd)
 		if (ft_strncmp(lkd_env->env_line, "OLDPWD", 5) == 0)
 		{
 			ft_strcpy(old_line, "OLDPWD=");
-			ft_strcpy(lkd_env->env_line, ft_strcat(old_line, old_pwd));
+			if (!old_pwd)
+				ft_strcpy(lkd_env->env_line, ft_strcat(old_line, new_pwd));
+			else
+				ft_strcpy(lkd_env->env_line, ft_strcat(old_line, old_pwd));
 		}
 		lkd_env = lkd_env->next;
 	}

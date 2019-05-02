@@ -6,11 +6,13 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 08:59:56 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/01 00:06:07 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/02 14:24:57 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+#include <stdio.h>
 
 static int		countwords(char const *s, char c)
 {
@@ -37,13 +39,15 @@ static int		countchar(char const *str, int i, char c)
 	nbrchar = 0;
 	while (str[i])
 	{
-		if (str[i] != c)
+		printf("Je regarde %c\n", str[i]);
+		if (str[i] && str[i] != c)
 			nbrchar++;
 		else
 			return (nbrchar);
 		i++;
 	}
-	return (0);
+	printf("Je retourne ici ?\n");
+	return (nbrchar);
 }
 
 char			**ft_strsplit(char const *s, char c)
@@ -52,23 +56,29 @@ char			**ft_strsplit(char const *s, char c)
 	int		j;
 	int		i;
 	int		k;
+	int		nbrchar;
 
 	j = 0;
 	i = 0;
 	if (!s)
 		return (0);
-	if (!(ret = (char **)malloc(sizeof(char *) * countwords(s, c) + 1)))
+	printf("Je malloc mon grand tableau de %d elements\n", countwords(s, c) + 1);
+	if (!(ret = (char **)malloc(sizeof(char *) * (nbrchar = countwords(s, c) + 1))))
 		return (0);
-	while (j < countwords(s, c))
+	while (j + 1 < nbrchar)
 	{
+		printf("Je boucle\n");
 		k = 0;
-		while (s[i] == c)
-			i++;
-		if (!(ret[j] = (char *)malloc(sizeof(char) * countchar(s, i, c) + 1)))
+		printf("Je malloc de %d elements\n", countchar(s, i, c));
+		if (!(ret[j] = ft_strnew(countchar(s, i, c))))
 			return (0);
-		while (s[i] != c && s[i])
+		while (s[i] && s[i] != c)
+		{
+			printf("je copie %c\n", s[i]);
 			ret[j][k++] = s[i++];
-		ret[j++][k] = '\0';
+		}
+		i++;
+		j++;
 	}
 	ret[j] = 0;
 	return (ret);
