@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:36:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 12:27:23 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:17:26 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # define BUFF_SIZE 32
 # define MAX_INT64 (9223372036854775807LL)
-
 
 typedef struct	s_list
 {
@@ -95,10 +94,11 @@ size_t			ft_strlen(char const *s);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int				get_next_line(const int fd, char **line);
-char 			*ft_strlower(char *str);
+char			*ft_strlower(char *str);
 char			*ft_strupper(char *str);
 char			**ft_split_whitespaces(char *str);
-char			*ft_strnncpy(char *dest, char const *src, unsigned int i, unsigned int n);
+char			*ft_strnncpy(char *dest, char const *src,
+	unsigned int i, unsigned int n);
 const char		*ft_conststrjoin(char const *s1, char const *s2);
 
 #endif

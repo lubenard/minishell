@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.f	r>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/05/03 15:18:10 by lubenard         ###   ########.fr        #
+#    Updated: 2019/05/03 17:14:25 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = srcs/main.c \
 	  srcs/save_command.c \
 	  srcs/autocomplete.c \
 	  srcs/multiple_command.c \
+	  srcs/errors.c \
 	  srcs/builtins/echo.c \
 	  srcs/builtins/echo2.c \
 	  srcs/builtins/print_env.c \

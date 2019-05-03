@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 11:37:51 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:00:19 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,18 @@ void	write_prompt(char *username, char *curr_dir)
 	ft_putstr("\033[0m >  ");
 }
 
-char	*get_command_from_arg(char **argv, char *command)
+void	exec_loop(t_env *lkd_env, char **get_curr_path,
+	char ***path, char **command)
 {
-	if (argv[1] == NULL)
-		get_next_line(0, &command);
-	else
-	{
-		command = ft_strdup(argv[1]);
-		ft_putendl(argv[1]);
-	}
-	return (command);
+	free(*command);
+	free_prompt(ft_strdup(""), g_curr_dir, *path);
+	*path = get_path(find_path(lkd_env));
+	g_curr_dir = find_cur_dir(lkd_env);
+	write_prompt(g_username, g_curr_dir);
+	signal(SIGINT, handle_signals);
+	get_next_line(0, command);
+	save_command(*command, *get_curr_path);
+	get_command(*command, *path, lkd_env);
 }
 
 void	main_loop(char **env, t_env *lkd_env, char **argv)
@@ -72,15 +74,7 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 	{
 		if (return_command == 0)
 			break ;
-		free(command);
-		free_prompt(ft_strdup(""), g_curr_dir, path);
-		path = get_path(find_path(lkd_env));
-		g_curr_dir = find_cur_dir(lkd_env);
-		write_prompt(g_username, g_curr_dir);
-		signal(SIGINT, handle_signals);
-		get_next_line(0, &command);
-		save_command(command, get_curr_path);
-		return_command = get_command(command, path, lkd_env);
+		exec_loop(lkd_env, &get_curr_path, &path, &command);
 	}
 	free_prompt(g_username, g_curr_dir, path);
 	free(command);

@@ -6,18 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 16:02:38 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:10:34 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	error(char *command)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd(" : command not found ¯\\_(ツ)_/¯\n", 2);
-}
 
 char	*extract_command(char *command)
 {
