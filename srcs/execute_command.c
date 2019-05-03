@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/01 00:59:22 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:09:36 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,21 @@ void	get_error_exec(char path[6000])
 		ft_putstr_fd("Hum, apparently it's a folder (●__●)\n", 2);
 }
 
+int		free_after_exec(char **argv, char *get_right_path,
+	char *command, char **env)
+{
+	int i;
+
+	i = 0;
+	while (argv[i])
+		free(argv[i++]);
+	free(get_right_path);
+	free(argv);
+	free(env);
+	free(command);
+	return (0);
+}
+
 int		execute_command(char *get_right_path, char *command,
 	char **argv, char **env)
 {
@@ -142,12 +157,5 @@ int		execute_command(char *get_right_path, char *command,
 		ft_putstr("An error happened: \n");
 		get_error_exec(path);
 	}
-	i = 0;
-	while (argv[i])
-		free(argv[i++]);
-	free(get_right_path);
-	free(argv);
-	free(env);
-	free(command);
-	return (0);
+	return (free_after_exec(argv, get_right_path, command, env));
 }

@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 11:52:27 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 23:44:44 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 11:47:01 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		autocomp_builtins(char *command)
 	}
 	else if (ft_strncmp(command, "unsetenv", len) == 0)
 	{
-		ft_putstr("unsetenv");
+		ft_putstr("unsetenv\n");
 		free(command);
 		return (1);
 	}
@@ -56,7 +56,6 @@ void	autocomplete(char **path, char *command)
 	DIR				*p_dir;
 	char			*first_command;
 
-
 	i = 0;
 	if (path == NULL || command == NULL)
 		return ;
@@ -68,8 +67,9 @@ void	autocomplete(char **path, char *command)
 		p_dir = opendir(path[i]);
 		while ((p_dirent = readdir(p_dir)) != NULL)
 		{
-			if (ft_strncmp(p_dirent->d_name, first_command, ft_strlen(first_command)) == 0)
-					ft_putendl(p_dirent->d_name);
+			if (ft_strncmp(p_dirent->d_name, first_command,
+			ft_strlen(first_command)) == 0)
+				ft_putendl(p_dirent->d_name);
 		}
 		closedir(p_dir);
 		i++;

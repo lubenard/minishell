@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/25 16:55:00 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:29:21 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char		*extract_params(char *command)
 	e = 0;
 	while (command[i] && command[i] != ' ')
 		++i;
-	while (command[i] == ' ')
+	while (command[i] == ' ' || command[i] == '\t')
 		++i;
 	while (command[i + e])
 		++e;

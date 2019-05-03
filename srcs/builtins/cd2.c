@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multiple_command.c                                 :+:      :+:    :+:   */
+/*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 16:44:57 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 11:49:52 by lubenard         ###   ########.fr       */
+/*   Created: 2019/05/03 15:13:49 by lubenard          #+#    #+#             */
+/*   Updated: 2019/05/03 15:24:52 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int		get_multiple_command(char *command, char **path, t_env *lkd_env)
+char	*extract_path(char *command)
 {
-	char	**tab;
-	int		i;
+	int i;
+	int e;
 
+	if (!ft_strcmp(command, ".."))
+		return (ft_strdup(".."));
 	i = 0;
-	tab = ft_strsplit(command, ';');
-	while (tab[i])
-	{
-		get_command(tab[i], path, lkd_env);
+	e = 0;
+	while (command[i] == ' ' || command[i] == '\t')
 		i++;
-	}
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-	if (ft_strstr(command, "exit"))
-		return (0);
-	return (1);
+	while (command[i] && command[i] != ' ')
+		i++;
+	while (command[i] == ' ' || command[i] == '\t')
+		i++;
+	while (command[i + e])
+		e++;
+	return (ft_strsub(command, i, e));
 }

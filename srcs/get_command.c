@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 23:34:28 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:02:38 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*extract_command(char *command)
 
 	i = 0;
 	e = 0;
-	while (command[e] == ' ')
+	while (command[e] == ' ' || command[e] == '\t')
 		e++;
 	while (command[e + i] != ' ' && command[e + i])
 		++i;
@@ -59,38 +59,46 @@ void	free_lkd_env(t_env *lkd_env)
 	}
 }
 
-int		get_command(char *command, char **path, t_env *lkd_env)
+void	decide_command(t_env *lkd_env, char **path,
+	char *command, char *get_right_path)
 {
 	char *first_command;
+
+	first_command = extract_command(command);
+	if (command[ft_strlen(command) - 2] == 9)
+		autocomplete(path, command);
+	else if (!ft_strcmp(first_command, "echo"))
+		echo(lkd_env, command);
+	else if (!ft_strcmp(first_command, "env")
+	&& !ft_strstr(command, "-i"))
+		print_env(lkd_env);
+	else if (!ft_strcmp(first_command, "setenv"))
+		set_env(lkd_env, command);
+	else if (!ft_strcmp(first_command, "unsetenv"))
+		unset_env(lkd_env, command);
+	else if (!ft_strcmp(first_command, "cd")
+	|| !ft_strcmp(first_command, ".."))
+		cd(lkd_env, command);
+	else if ((get_right_path = external_command(path, first_command))
+		!= NULL)
+		execute_command(get_right_path, extract_command(command),
+			ft_split_whitespaces(command), compact_env(lkd_env));
+	else
+		error(first_command);
+	free(first_command);
+}
+
+int		get_command(char *command, char **path, t_env *lkd_env)
+{
 	char *get_right_path;
 
+	get_right_path = NULL;
 	if (ft_strchr(command, ';'))
 		return (get_multiple_command(command, path, lkd_env));
 	if (ft_strncmp(command, "exit", 4) != 0)
 	{
 		if (ft_isblank(command) != -1)
-		{
-			first_command = extract_command(command);
-			if (command[ft_strlen(command) - 2] == 9)
-				autocomplete(path, command);
-			else if (!ft_strcmp(first_command, "echo"))
-				echo(lkd_env, command);
-			else if (!ft_strcmp(first_command, "env") && !ft_strstr(command, "-i"))
-				print_env(lkd_env);
-			else if (!ft_strcmp(first_command, "setenv"))
-				set_env(lkd_env, command);
-			else if (!ft_strcmp(first_command, "unsetenv"))
-				unset_env(lkd_env, command);
-			else if (!ft_strcmp(first_command, "cd") || !ft_strcmp(first_command, ".."))
-				cd(lkd_env, command);
-			else if ((get_right_path = external_command(path, first_command))
-				!= NULL)
-				execute_command(get_right_path, extract_command(command),
-					ft_split_whitespaces(command), compact_env(lkd_env));
-			else
-				error(first_command);
-			free(first_command);
-		}
+			decide_command(lkd_env, path, command, get_right_path);
 		return (1);
 	}
 	else

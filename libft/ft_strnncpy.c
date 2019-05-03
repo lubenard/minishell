@@ -6,13 +6,14 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 13:48:27 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/26 17:33:22 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 11:41:26 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnncpy(char *dest, char const *src, unsigned int i, unsigned int n)
+char	*ft_strnncpy(char *dest, char const *src, unsigned int i,
+	unsigned int n)
 {
 	int k;
 

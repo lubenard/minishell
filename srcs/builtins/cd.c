@@ -6,27 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 13:24:11 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:18:15 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*extract_path(char *command)
-{
-	int i;
-	int e;
-
-	if (!ft_strcmp(command, ".."))
-		return (ft_strdup(".."));
-	i = 2;
-	e = 0;
-	while (command[i] == ' ')
-		i++;
-	while (command[i + e])
-		e++;
-	return (ft_strsub(command, i, e));
-}
 
 void	change_env_cd(t_env *lkd_env, char *old_pwd, char *new_pwd)
 {
@@ -80,11 +64,11 @@ char	*handle_sortcut(t_env *lkd_env, char *path)
 {
 	char *spec_path;
 
-
 	if (!get_shortcut_path(lkd_env, &spec_path, path))
 		return (spec_path);
-	else if (!ft_strcmp(path, "~") || !ft_strcmp(path, "") || !ft_strcmp(path, "--")
-		|| !ft_strcmp(path, "~/"))
+	else if (!ft_strcmp(path, "~")
+	|| !ft_strcmp(path, "") || !ft_strcmp(path, "--")
+	|| !ft_strcmp(path, "~/"))
 	{
 		free(path);
 		path = find_in_env(lkd_env, ft_strdup("HOME"));
