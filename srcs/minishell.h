@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 17:13:09 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 23:00:02 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void				error(char *command);
 void				get_error_exec(char path[6000]);
 int					free_after_exec(char **argv, char *get_right_path,
 	char *command, char **env);
-
+void	free_lkd_env(t_env *lkd_env);
 /*
 ** Builtins
 */

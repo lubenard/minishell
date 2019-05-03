@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 15:57:12 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 23:04:31 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int		handle_dollar(t_env *lkd_env, char *command, int i)
 	if (command[i] == '$' && command[i + 1] != ' ')
 	{
 		i++;
-		while (command[i + e] && command[i + e] != ' ')
+		while (command[i + e] && (command[i + e] != ' '
+		&& command[i + e] != '$'))
 			e++;
 		str = find_in_env(lkd_env, ft_strsub(command, i, e));
 		ft_putstr(str);
@@ -31,11 +32,12 @@ int		handle_dollar(t_env *lkd_env, char *command, int i)
 	return (i + 1);
 }
 
-void	verify_folder(char buffer[4096], char user_name[33])
+void	verify_folder(char buffer[4096], char user_name[33], char *str)
 {
 	struct stat		s;
 	int				err;
 
+	free(str);
 	ft_strcat(buffer, user_name);
 	err = stat(buffer, &s);
 	if (err == -1)
@@ -70,7 +72,7 @@ int		handle_tilde(t_env *lkd_env, char *command, int i)
 		while (str[j] != '/')
 			j--;
 		ft_strncpy(buff, str, j + 1);
-		verify_folder(buff, user_name);
+		verify_folder(buff, user_name, str);
 		return (i + e);
 	}
 	else

@@ -6,11 +6,12 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 15:50:41 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 22:48:10 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
 int		ft_len(char *path_line)
 {
@@ -44,6 +45,8 @@ char	*find_name(char **env)
 	int i;
 
 	i = 0;
+	if (env[1] == NULL)
+		return (ft_strdup("John Doe"));
 	while (ft_strncmp("USER", env[i], 3) != 0)
 		++i;
 	return (ft_strsub(env[i], 5, 50));

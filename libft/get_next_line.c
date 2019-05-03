@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 11:00:13 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/02 23:22:28 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 23:22:45 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char			*read_line(char **gnl, char *buf, int fd)
 	while (!ft_strchr(*gnl, '\n') && ret)
 	{
 		ret = read(fd, buf, BUFF_SIZE);
-		if (ret)
+		if (ret >= 0)
 		{
 			buf[ret] = '\0';
 			tmp = *gnl;
@@ -29,6 +29,8 @@ char			*read_line(char **gnl, char *buf, int fd)
 				return (NULL);
 			free(tmp);
 		}
+		else if (ret == -1)
+			return (tmp);
 	}
 	free(buf);
 	return (*gnl);

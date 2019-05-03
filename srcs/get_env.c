@@ -6,13 +6,14 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:37:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/04/23 18:46:36 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 22:09:38 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_env	*new_maillon(void)
+
 {
 	t_env		*new_element;
 
@@ -34,6 +35,8 @@ t_env	*get_env(char **env)
 	i = 0;
 	lkd_env = new_maillon();
 	tmp = lkd_env;
+	if (env == NULL)
+		return (NULL);
 	while (env[i])
 	{
 		ft_strcpy(lkd_env->env_line, env[i]);

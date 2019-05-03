@@ -4,9 +4,9 @@
 /*   multiple_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                        _                        +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 16:44:57 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 17:00:13 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 23:00:19 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int		get_multiple_command(char *command, char **path, t_env *lkd_env)
 		free(tab[i++]);
 	free(tab);
 	if (ft_strstr(command, "exit"))
+	{
+		free_lkd_env(lkd_env);
 		return (0);
-	return (1);
+	}
+return (1);
 }

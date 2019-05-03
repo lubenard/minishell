@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 17:00:19 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/03 23:31:49 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_prompt(char *username, char *curr_dir, char **path)
 	i = 0;
 	free(username);
 	free(curr_dir);
+
 	if (path)
 	{
 		while (path[i])
@@ -58,8 +59,10 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 	char	*command;
 	char	**path;
 	char	*get_curr_path;
+
 	int		return_command;
 
+	(void)env;
 	command = NULL;
 	g_curr_dir = find_cur_dir(lkd_env);
 	g_username = find_name(env);
