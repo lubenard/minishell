@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 17:14:04 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/04 11:52:29 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*external_command(char **path, char *first_command)
 		return (search_absolute_path(first_command));
 	if (path == NULL || !ft_strcmp(first_command, "."))
 		return (NULL);
-	while (path[i + 1])
+	while (path[i])
 	{
 		p_dir = opendir(path[i]);
 		while ((p_dirent = readdir(p_dir)) != NULL)

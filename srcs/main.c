@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 23:31:49 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/04 12:09:32 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 	char	*command;
 	char	**path;
 	char	*get_curr_path;
-
 	int		return_command;
 
-	(void)env;
 	command = NULL;
 	g_curr_dir = find_cur_dir(lkd_env);
 	g_username = find_name(env);
@@ -73,7 +71,7 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 	command = get_command_from_arg(argv, command);
 	save_command(command, get_curr_path);
 	return_command = get_command(command, path, lkd_env);
-	while (ft_strncmp(command, "exit", 4))
+	while (command && ft_strncmp(command, "exit", 4))
 	{
 		if (return_command == 0)
 			break ;
