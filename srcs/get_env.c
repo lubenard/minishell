@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:37:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 12:07:26 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:47:22 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ t_env	*get_env(char **env)
 
 	i = 0;
 	lkd_env = new_maillon();
+	if (env[0] == NULL)
+	{
+		printf("Oki\n");
+		ft_strcpy(lkd_env->env_line, "");
+		return (lkd_env);
+	}
 	tmp = lkd_env;
-	if (env == NULL)
-		return (NULL);
 	while (env[i])
 	{
 		ft_strcpy(lkd_env->env_line, env[i]);

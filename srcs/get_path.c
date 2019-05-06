@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 22:48:10 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:51:32 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		ft_len(char *path_line)
 
 char	*find_cur_dir(t_env *lkd_env)
 {
+	if (ft_strcmp(lkd_env->env_line, "") == 0)
+		return (ft_strdup("~#"));
 	while (lkd_env)
 	{
 		if (ft_strncmp("PWD", lkd_env->env_line, 2) == 0)
@@ -45,7 +47,7 @@ char	*find_name(char **env)
 	int i;
 
 	i = 0;
-	if (env[1] == NULL)
+	if (env[0] == NULL)
 		return (ft_strdup("John Doe"));
 	while (ft_strncmp("USER", env[i], 3) != 0)
 		++i;

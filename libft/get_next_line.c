@@ -6,13 +6,11 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 11:00:13 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 12:41:38 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:21:36 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include <stdio.h>
 
 char			*read_line(char **gnl, char *buf, int fd)
 {
@@ -31,11 +29,11 @@ char			*read_line(char **gnl, char *buf, int fd)
 				return (NULL);
 			free(tmp);
 		}
-		/*else if (ret == 0)
+		else if (ret == 0)
 		{
 			ft_putstr_fd("\n", 0);
 			return (*gnl = ft_strdup("\n"));
-		}*/
+		}
 	}
 	free(buf);
 	return (*gnl);
