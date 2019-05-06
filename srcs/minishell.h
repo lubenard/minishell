@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 12:59:28 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:53:23 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env				*new_maillon(void);
 char				*extract_params(char *command);
 char				*extract_command(char *command);
 char				*find_path(t_env *lkd_env);
-char				*find_name(char **env);
+char				*find_name(t_env *lkd_env);
 char				*find_cur_dir(t_env *lkd_env);
 char				**compact_env(t_env *lkd_env);
 char				*extract_first_env(char *command, int mode);

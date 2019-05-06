@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 13:51:32 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:53:57 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,14 @@ char	*find_cur_dir(t_env *lkd_env)
 	return (ft_strdup("~#"));
 }
 
-char	*find_name(char **env)
+char	*find_name(t_env *lkd_env)
 {
-	int i;
+	char *name;
 
-	i = 0;
-	if (env[0] == NULL)
+	name = find_in_env(lkd_env, ft_strdup("USER"));
+	if (ft_strcmp(name, "") == 0)
 		return (ft_strdup("John Doe"));
-	while (ft_strncmp("USER", env[i], 3) != 0)
-		++i;
-	return (ft_strsub(env[i], 5, 50));
+	return (name);
 }
 
 char	*find_path(t_env *lkd_env)

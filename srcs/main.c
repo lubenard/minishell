@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 13:51:47 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:55:11 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		exec_loop(t_env *lkd_env, char **get_curr_path,
 	return (get_command(*command, *path, lkd_env));
 }
 
-void	main_loop(char **env, t_env *lkd_env, char **argv)
+void	main_loop(t_env *lkd_env, char **argv)
 {
 	char	*command;
 	char	**path;
@@ -62,7 +62,7 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 
 	command = NULL;
 	g_curr_dir = find_cur_dir(lkd_env);
-	g_username = find_name(env);
+	g_username = find_name(lkd_env);
 	get_curr_path = find_in_env(lkd_env, ft_strdup("PWD"));
 	write_prompt(g_username, g_curr_dir);
 	path = get_path(find_path(lkd_env));
@@ -82,6 +82,6 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
-	main_loop(env, get_env(env), argv);
+	main_loop(get_env(env), argv);
 	return (0);
 }

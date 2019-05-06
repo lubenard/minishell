@@ -6,23 +6,27 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 15:32:02 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 16:22:34 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*error_setenv(void)
+char	*error_setenv(char *command, int i, int e)
 {
-	ft_putstr_fd("setenv: invalid syntax\n", 2);
-	ft_putstr_fd("the correct syntax is t=1\n", 2);
-	return (NULL);
+	if (ft_strrchr(command, i, ' ') != NULL)
+	{
+		ft_putstr_fd("setenv: invalid syntax\n", 2);
+		ft_putstr_fd("the correct syntax is t=1\n", 2);
+		return (NULL);
+	}
+	return (ft_strsub(command, i, e));
 }
 
 char	*extract_first_env(char *command, int mode)
 {
-	int i;
-	int e;
+	int		i;
+	int		e;
 
 	i = 0;
 	e = 0;
@@ -40,11 +44,9 @@ char	*extract_first_env(char *command, int mode)
 			++i;
 		while (command[i + e] && command[i + e] != '=')
 			++e;
-		if (command[i + e - 1] == ' ' || command[i + e + 1] == ' ')
-			return (error_setenv());
 		if (e == 0)
 			return (ft_strdup(command));
-		return (ft_strsub(command, i, e));
+		return (error_setenv(command, i, e));
 	}
 }
 
@@ -52,10 +54,15 @@ void	set_env3(t_env *lkd_env, t_env *new_element,
 	char *to_search, char *to_add)
 {
 	free(to_search);
-	new_element = new_maillon();
-	lkd_env->next = new_element;
-	lkd_env->next->prev = lkd_env;
-	ft_strcpy(lkd_env->next->env_line, to_add);
+	if (lkd_env->prev || lkd_env->next)
+	{
+		new_element = new_maillon();
+		lkd_env->next = new_element;
+		lkd_env->next->prev = lkd_env;
+		ft_strcpy(lkd_env->next->env_line, to_add);
+	}
+	else
+		ft_strcpy(lkd_env->env_line, to_add);
 	free(to_add);
 }
 
@@ -89,10 +96,8 @@ void	set_env(t_env *lkd_env, char *command)
 	char	*to_extract;
 
 	new_element = NULL;
-	if (ft_strchr(command, '=') == 0)
-		return ;
-	to_search = extract_first_env(command, 1);
-	if (!to_search)
+	if (ft_strchr(command, '=') == 0
+	|| !(to_search = extract_first_env(command, 1)))
 		return ;
 	to_add = extract_params(command);
 	while (lkd_env)
