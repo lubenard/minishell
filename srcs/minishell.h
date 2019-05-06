@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 23:00:02 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:59:28 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <signal.h>
+
+#include <stdio.h>
 
 typedef struct		s_env
 {
@@ -53,12 +55,13 @@ void				autocomplete(char **path, char *command);
 void				error_echo(char user[33]);
 void				handle_tilde2(t_env *lkd_env);
 char				*extract_path(char *command);
-char				*get_command_from_arg(char **argv, char *command);
+int					get_command_from_arg(char **argv, char **command);
 void				error(char *command);
 void				get_error_exec(char path[6000]);
 int					free_after_exec(char **argv, char *get_right_path,
 	char *command, char **env);
-void	free_lkd_env(t_env *lkd_env);
+void				free_lkd_env(t_env *lkd_env);
+int					find_exit(char *command);
 /*
 ** Builtins
 */

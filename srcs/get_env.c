@@ -6,14 +6,13 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:37:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 22:09:38 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:07:26 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_env	*new_maillon(void)
-
 {
 	t_env		*new_element;
 

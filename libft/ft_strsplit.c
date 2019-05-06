@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 08:59:56 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 11:44:47 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 10:52:56 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char			**ft_strsplit(char const *s, char c)
 		return (0);
 	if (!(ret = (char **)malloc(sizeof(char *) * (nbrchar + 1))))
 		return (0);
-	while (j + 1 < nbrchar)
+	while (j < nbrchar)
 	{
 		k = 0;
 		if (!(ret[j] = ft_strnew(countchar(s, i, c))))

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/04 12:05:58 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 12:59:43 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,29 @@ void	decide_command(t_env *lkd_env, char **path,
 	free(first_command);
 }
 
+int		find_exit(char *command)
+{
+	int i;
+
+	i = 0;
+	while (command[i] == ' ')
+		i++;
+	if (command[i] == 'e')
+	{
+		if (command[i + 1] == 'x')
+		{
+			if (command[i + 2] == 'i')
+			{
+				if (command[i + 3] == 't' && ft_isalnum(command[i + 4]) == 0)
+					return (1);
+				else
+					return (0);
+			}
+		}
+	}
+	return (0);
+}
+
 int		get_command(char *command, char **path, t_env *lkd_env)
 {
 	char *get_right_path;
@@ -88,7 +111,7 @@ int		get_command(char *command, char **path, t_env *lkd_env)
 	get_right_path = NULL;
 	if (command && ft_strchr(command, ';'))
 		return (get_multiple_command(command, path, lkd_env));
-	if (command && ft_strncmp(command, "exit", 4))
+	if (command && find_exit(command) == 0)
 	{
 		if (ft_isblank(command) != -1)
 			decide_command(lkd_env, path, command, get_right_path);

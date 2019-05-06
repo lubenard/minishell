@@ -4,46 +4,51 @@
 /*   multiple_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                        _                        +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 16:44:57 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 23:00:19 by lubenard         ###   ########.fr       */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/06 12:06:30 by lubenard          #+#    #+#             */
+/*   Updated: 2019/05/06 13:00:17 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_command_from_arg(char **argv, char *command)
+int		get_command_from_arg(char **argv, char **command)
 {
 	if (argv[1] == NULL)
-		get_next_line(0, &command);
+		get_next_line(0, command);
 	else
 	{
-		command = ft_strdup(argv[1]);
+		*command = ft_strdup(argv[1]);
 		ft_putendl(argv[1]);
+		return (1);
 	}
-	return (command);
+	return (0);
 }
 
 int		get_multiple_command(char *command, char **path, t_env *lkd_env)
 {
 	char	**tab;
 	int		i;
+	int		e;
 
 	i = 0;
+	e = 0;
 	tab = ft_strsplit(command, ';');
 	while (tab[i])
 	{
 		get_command(tab[i], path, lkd_env);
+		if (find_exit(tab[i]))
+		{
+			e = 1;
+			break ;
+		}
 		i++;
 	}
 	i = 0;
 	while (tab[i])
 		free(tab[i++]);
 	free(tab);
-	if (ft_strstr(command, "exit"))
-	{
-		free_lkd_env(lkd_env);
+	if (e == 1)
 		return (0);
-	}
-return (1);
+	return (1);
 }

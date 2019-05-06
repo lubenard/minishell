@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/04 12:09:32 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/06 13:00:03 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	free_prompt(char *username, char *curr_dir, char **path)
 	i = 0;
 	free(username);
 	free(curr_dir);
-
 	if (path)
 	{
 		while (path[i])
@@ -40,7 +39,7 @@ void	write_prompt(char *username, char *curr_dir)
 	ft_putstr("\033[0m >  ");
 }
 
-void	exec_loop(t_env *lkd_env, char **get_curr_path,
+int		exec_loop(t_env *lkd_env, char **get_curr_path,
 	char ***path, char **command)
 {
 	free(*command);
@@ -51,7 +50,7 @@ void	exec_loop(t_env *lkd_env, char **get_curr_path,
 	signal(SIGINT, handle_signals);
 	get_next_line(0, command);
 	save_command(*command, *get_curr_path);
-	get_command(*command, *path, lkd_env);
+	return (get_command(*command, *path, lkd_env));
 }
 
 void	main_loop(char **env, t_env *lkd_env, char **argv)
@@ -68,14 +67,12 @@ void	main_loop(char **env, t_env *lkd_env, char **argv)
 	write_prompt(g_username, g_curr_dir);
 	path = get_path(find_path(lkd_env));
 	signal(SIGINT, handle_signals);
-	command = get_command_from_arg(argv, command);
+	get_command_from_arg(argv, &command);
 	save_command(command, get_curr_path);
 	return_command = get_command(command, path, lkd_env);
-	while (command && ft_strncmp(command, "exit", 4))
+	while (command && find_exit(command) == 0 && return_command == 1)
 	{
-		if (return_command == 0)
-			break ;
-		exec_loop(lkd_env, &get_curr_path, &path, &command);
+		return_command = exec_loop(lkd_env, &get_curr_path, &path, &command);
 	}
 	free_prompt(g_username, g_curr_dir, path);
 	free(command);
