@@ -6,13 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 14:21:03 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 13:20:56 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:24:04 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include <stdio.h>
 
 void	handle_signals_proc(int sig)
 {

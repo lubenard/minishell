@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 11:00:13 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 13:21:36 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:37:46 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char			*read_line(char **gnl, char *buf, int fd)
 		else if (ret == 0)
 		{
 			ft_putstr_fd("\n", 0);
+			free(buf);
 			return (*gnl = ft_strdup("\n"));
 		}
 	}

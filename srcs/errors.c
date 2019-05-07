@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:01:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/07 14:48:36 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:21:30 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*extract_command(char *command)
 	e = 0;
 	while (command[e] == ' ' || command[e] == '\t')
 		e++;
-	while (command[e + i] != ' ' && command[e + i])
+	while (ft_isalnum(command[i + e]))
 		++i;
 	return (ft_strlower(ft_strsub(command, e, i)));
 }

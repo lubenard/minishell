@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/07 14:45:55 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:39:36 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	main_loop(t_env *lkd_env, char **argv)
 	char	*get_curr_path;
 	int		return_command;
 
-	command = NULL;
 	g_curr_dir = find_cur_dir(lkd_env);
 	g_username = find_name(lkd_env);
 	get_curr_path = find_in_env(lkd_env, ft_strdup("PWD"));

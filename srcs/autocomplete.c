@@ -6,7 +6,7 @@
 /*   By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 11:52:27 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 11:47:01 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:15:41 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@ char	*external_autoco_command(char *command)
 	int i;
 	int e;
 
-	i = ft_strlen(command);
+	i = 0;
 	e = 0;
-	while (!ft_isalpha(command[i]) && i >= 0)
-		i--;
-	while (ft_isalpha(command[i]) && i >= 0)
-	{
-		i--;
+	while (!ft_isalpha(command[i]))
+		i++;
+	while (ft_isalpha(command[i + e]))
 		e++;
-	}
-	return (ft_strsub(command, i + 1, e));
+	return (ft_strsub(command, i, e));
 }
 
 int		autocomp_builtins(char *command)

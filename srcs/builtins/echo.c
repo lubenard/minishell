@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 23:04:31 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:33:45 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int		handle_dollar(t_env *lkd_env, char *command, int i)
 	if (command[i] == '$' && command[i + 1] != ' ')
 	{
 		i++;
-		while (command[i + e] && (command[i + e] != ' '
-		&& command[i + e] != '$'))
+		while (command[i + e] && command[i + e] != ' '
+		&& ft_isalnum(command[i + e]))
 			e++;
 		str = find_in_env(lkd_env, ft_strsub(command, i, e));
 		ft_putstr(str);
 		free(str);
-		return (i += e);
+		return (i + e);
 	}
 	return (i + 1);
 }
@@ -66,14 +66,15 @@ int		handle_tilde(t_env *lkd_env, char *command, int i)
 	{
 		str = find_in_env(lkd_env, ft_strdup("HOME"));
 		j = ft_strlen(str);
-		while (command[i + e] && command[i + e] != ' ')
+		while (command[i + e] && command[i + e] != ' '
+		&& ft_isalnum(command[i + e]))
 			e++;
 		ft_strnncpy(user_name, command, i + 1, i + e);
 		while (str[j] != '/')
 			j--;
 		ft_strncpy(buff, str, j + 1);
 		verify_folder(buff, user_name, str);
-		return (i + e);
+		return (i + e + 1);
 	}
 	else
 		handle_tilde2(lkd_env);
@@ -85,9 +86,9 @@ int		return_i(char *command)
 	int i;
 
 	i = 0;
-	while (command[i] == ' ')
+	while (command[i] == ' ' || command[i] == '\t')
 		i++;
-	while (command[i] && command[i] != ' ')
+	while (command[i] && ft_isalnum(command[i]))
 		i++;
 	return (++i);
 }
@@ -104,9 +105,12 @@ void	echo(t_env *lkd_env, char *command)
 		e = 1;
 		i += 3;
 	}
-	while (command[i])
+	while (command[i - 1])
 	{
-		if (command[i] == '$')
+		if (command[i] == '\t' || (command[i] == ' '
+		&& (command[i + 1] == ' ' || command[i - 1] == ' ')))
+			i++;
+		else if (command[i] == '$')
 			i = handle_dollar(lkd_env, command, i);
 		else if (command[i] == '~')
 			i = handle_tilde(lkd_env, command, i);
