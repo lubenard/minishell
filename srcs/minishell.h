@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 14:53:23 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:33:30 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <signal.h>
-
-#include <stdio.h>
 
 typedef struct		s_env
 {

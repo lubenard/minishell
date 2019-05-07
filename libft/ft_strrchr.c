@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 11:41:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 16:21:51 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:33:04 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_strrchr(char const *s, int start, int c)
 {
-
 	while (s[start])
 	{
 		if (s[start] == (char)c)

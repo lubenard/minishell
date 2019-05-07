@@ -6,25 +6,11 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 12:59:43 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:48:41 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*extract_command(char *command)
-{
-	int i;
-	int e;
-
-	i = 0;
-	e = 0;
-	while (command[e] == ' ' || command[e] == '\t')
-		e++;
-	while (command[e + i] != ' ' && command[e + i])
-		++i;
-	return (ft_strlower(ft_strsub(command, e, i)));
-}
 
 int		count_args(char *command, int i)
 {

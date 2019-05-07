@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:01:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 17:12:41 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:48:36 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,18 @@ int		free_after_exec(char **argv, char *get_right_path,
 	free(env);
 	free(command);
 	return (0);
+}
+
+char	*extract_command(char *command)
+{
+	int i;
+	int e;
+
+	i = 0;
+	e = 0;
+	while (command[e] == ' ' || command[e] == '\t')
+		e++;
+	while (command[e + i] != ' ' && command[e + i])
+		++i;
+	return (ft_strlower(ft_strsub(command, e, i)));
 }

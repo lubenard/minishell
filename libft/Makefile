@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/05/02 13:33:21 by lubenard         ###   ########.fr        #
+#    Updated: 2019/05/07 14:31:51 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = clang
 
-CFLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 all:  $(NAME)
 

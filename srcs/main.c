@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 14:55:11 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/07 14:45:55 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ void	main_loop(t_env *lkd_env, char **argv)
 	save_command(command, get_curr_path);
 	return_command = get_command(command, path, lkd_env);
 	while (command && find_exit(command) == 0 && return_command == 1)
-	{
 		return_command = exec_loop(lkd_env, &get_curr_path, &path, &command);
-	}
 	free_prompt(g_username, g_curr_dir, path);
 	free(command);
 	free(get_curr_path);
