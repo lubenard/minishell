@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/06 16:22:34 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:42:32 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ char	*error_setenv(char *command, int i, int e)
 		ft_putstr_fd("setenv: invalid syntax\n", 2);
 		ft_putstr_fd("the correct syntax is t=1\n", 2);
 		return (NULL);
+	}
+	while (command[i])
+	{
+		if (command[i] > 127)
+		{
+			ft_putstr_fd("setenv: invalid syntax\n", 2);
+			ft_putstr_fd("Invalid character\n", 2);
+			return (NULL);
+		}
+		i++;
 	}
 	return (ft_strsub(command, i, e));
 }
