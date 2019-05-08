@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/08 19:42:32 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/08 22:32:47 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 char	*error_setenv(char *command, int i, int e)
 {
+	int k;
+
 	if (ft_strrchr(command, i, ' ') != NULL)
 	{
 		ft_putstr_fd("setenv: invalid syntax\n", 2);
 		ft_putstr_fd("the correct syntax is t=1\n", 2);
 		return (NULL);
 	}
-	while (command[i])
+	k = i;
+	while (command[k])
 	{
-		if (command[i] > 127)
+		if (command[k] > 127 || command[k] < 0)
 		{
 			ft_putstr_fd("setenv: invalid syntax\n", 2);
 			ft_putstr_fd("Invalid character\n", 2);
 			return (NULL);
 		}
-		i++;
+		k++;
 	}
 	return (ft_strsub(command, i, e));
 }
@@ -79,11 +82,15 @@ void	set_env3(t_env *lkd_env, t_env *new_element,
 int		set_env2(t_env **lkd_env, t_env **tmp,
 	char **to_extract, char **to_search)
 {
+	t_env *tmp2;
+
 	*to_extract = extract_first_env((*lkd_env)->env_line, 0);
 	if (ft_strcmp(*to_extract, *to_search) == 0)
 	{
 		free(*to_extract);
+		tmp2 = (*lkd_env)->prev;
 		unset_env(*lkd_env, *to_search);
+		*lkd_env = tmp2;
 		while ((*lkd_env)->prev)
 			(*lkd_env) = (*lkd_env)->prev;
 		while (*lkd_env)
