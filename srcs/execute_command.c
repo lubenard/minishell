@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/04 11:52:29 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/09 15:21:44 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ char	*external_command(char **path, char *first_command)
 	int				i;
 	struct dirent	*p_dirent;
 	DIR				*p_dir;
+	char			*does_it_exist;
 
 	i = 0;
-	if (first_command[0] == '/'
-		|| (first_command[0] == '.' && first_command[1] == '/'))
-		return (search_absolute_path(first_command));
+	if ((does_it_exist = search_absolute_path(first_command)))
+		return (does_it_exist);
 	if (path == NULL || !ft_strcmp(first_command, "."))
 		return (NULL);
 	while (path[i])

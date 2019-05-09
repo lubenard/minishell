@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/07 17:22:01 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:15:42 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int		find_exit(char *command)
 int		get_command(char *command, char **path, t_env *lkd_env)
 {
 	char *get_right_path;
+	char *first_command;
 
 	get_right_path = NULL;
 	if (command && ft_strchr(command, ';'))
@@ -100,7 +101,13 @@ int		get_command(char *command, char **path, t_env *lkd_env)
 	if (command && find_exit(command) == 0)
 	{
 		if (ft_isblank(command) != -1)
+		{
+			first_command = extract_command(command);
+			if (!ft_strcmp(first_command, "history"))
+				command = "cat .history";
 			decide_command(lkd_env, path, command, get_right_path);
+			free(first_command);
+		}
 		return (1);
 	}
 	else
