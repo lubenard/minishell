@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/09 16:32:34 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/09 19:06:01 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	change_env_launch(t_env *lkd_env, char *curr_dir)
 	free(str);
 }
 
-void	main_loop(t_env *lkd_env, char **argv)
+void	main_loop(t_env *lkd_env, char **argv, int launch)
 {
 	char	*command;
 	char	**path;
@@ -96,6 +96,7 @@ void	main_loop(t_env *lkd_env, char **argv)
 int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
-	main_loop(get_env(env), argv);
+
+	main_loop(get_env(env), argv, 0);
 	return (0);
 }
