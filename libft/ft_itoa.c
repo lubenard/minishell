@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:49:54 by lubenard          #+#    #+#             */
-/*   Updated: 2018/11/15 11:24:54 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:43:43 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char			*ft_itoa(int n)
 	neg = 0;
 	i = 0;
 	neg = (nbr < 0) ? -1 : 0;
-	if (!(result = (char *)malloc(sizeof(char) * ft_len(n) + 1 - neg)))
+	if (!(result = ft_strnew(ft_len(n)- neg)))
 		return (NULL);
 	if (nbr < 0)
 	{
@@ -66,6 +66,5 @@ char			*ft_itoa(int n)
 		nbr = nbr / 10;
 		i++;
 	}
-	result[ft_len(n) + 1] = '\0';
 	return (ft_result(result, nbr, n));
 }
