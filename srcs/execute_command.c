@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/09 15:21:44 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:23:26 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int		execute_command(char *get_right_path, char *command,
 	char	path[6000];
 
 	i = 0;
+	printf("%s %s\n",get_right_path, command);
 	if (command[0] == '/' || (command[0] == '.' && command[1] == '/'))
 		command = reduce_command(command);
 	g_pid = fork();

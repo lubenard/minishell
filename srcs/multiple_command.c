@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:06:30 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/09 17:18:25 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/10 10:15:29 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		get_command_from_arg(char **argv, char **command)
 {
 	if (argv[1] == NULL)
-		printf(">>>> %d\n", get_next_line(0, command));
+		get_next_line(0, command);
 	else
 	{
 		*command = ft_strdup(argv[1]);

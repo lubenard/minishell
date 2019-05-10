@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/08 22:19:55 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/10 08:11:08 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,12 @@ void		unset_env(t_env *lkd_env, char *command)
 		{
 			if (lkd_env->prev)
 				lkd_env->prev->next = lkd_env->next;
+			else
+				lkd_env->prev = NULL;
 			if (lkd_env->next)
 				lkd_env->next->prev = lkd_env->prev;
+			else
+				lkd_env->next = NULL;
 			free(to_extract);
 			free(lkd_env);
 			break ;
