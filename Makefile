@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/05/07 18:25:12 by lubenard         ###   ########.fr        #
+#    Updated: 2019/05/11 18:50:45 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ SRC = srcs/main.c \
 	  srcs/builtins/echo.c \
 	  srcs/builtins/echo2.c \
 	  srcs/builtins/print_env.c \
-	  srcs/builtins/set_env.c \
-	  srcs/builtins/unset_env.c \
+	  srcs/builtins/setenv.c \
+	  srcs/builtins/unsetenv.c \
 	  srcs/builtins/cd.c \
 	  srcs/builtins/cd2.c
 
