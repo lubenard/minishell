@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 11:58:40 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 20:13:42 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ int		ft_len(char *path_line)
 
 char	*find_cur_dir(t_env *lkd_env)
 {
-	if (ft_strcmp(lkd_env->env_line, "") == 0)
-		return (ft_strdup("~#"));
-	while (lkd_env)
-	{
-		if (ft_strncmp("PWD", lkd_env->env_line, 2) == 0)
-			return (ft_strsub(lkd_env->env_line, 4, 400));
-		lkd_env = lkd_env->next;
-	}
+	char *dir;
+
+	dir = find_in_env(lkd_env, ft_strdup("PWD"));
+	if (ft_strcmp(dir, ""))
+		return (dir);
 	return (ft_strdup("???"));
 }
 
@@ -46,9 +43,9 @@ char	*find_name(t_env *lkd_env)
 	char *name;
 
 	name = find_in_env(lkd_env, ft_strdup("USER"));
-	if (ft_strcmp(name, "") == 0)
-		return (ft_strdup("John Doe"));
-	return (name);
+	if (ft_strcmp(name, ""))
+		return (name);
+	return (ft_strdup("John Doe"));
 }
 
 char	*find_path(t_env *lkd_env)
