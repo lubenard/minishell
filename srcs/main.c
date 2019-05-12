@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/10 09:05:18 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 11:57:12 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,30 @@ int		exec_loop(t_env *lkd_env, char **get_curr_path,
 	return (get_command(*command, *path, lkd_env));
 }
 
-void	change_env_launch(t_env *lkd_env, char *curr_dir)
+void	change_env_launch(t_env *lkd_env)
 {
-	char buff[4096];
-	char *str;
-	int i;
+	char	buff[4096];
+	char	cwd[4096];
+	char	*str;
+	int		i;
 
-	(void)curr_dir;
-	ft_strcpy(buff, "setenv SHELL=");
-	str = find_in_env(lkd_env, ft_strdup("SHLVL"));
-	i = ft_atoi(str) + 1;
-	free(str);
-	set_env(lkd_env, ft_strcat(buff, curr_dir));
-	ft_strcpy(buff, "setenv SHLVL=");
-	set_env(lkd_env, ft_strcat(buff, str = ft_itoa(i)));
-	free(str);
+		str = find_in_env(lkd_env, ft_strdup("SHELL"));
+		if (ft_strcmp(str, ""))
+		{
+			ft_strcpy(buff, "setenv SHELL=");
+			getcwd(cwd, 4096);
+			set_env(lkd_env, ft_strcat(buff, cwd));
+		}
+		free(str);
+		str = find_in_env(lkd_env, ft_strdup("SHLVL"));
+		if (ft_strcmp(str, ""))
+		{
+			ft_strcpy(buff, "setenv SHLVL=");
+			i = ft_atoi(str) + 1;
+			free(str);
+			set_env(lkd_env, ft_strcat(buff, str = ft_itoa(i)));
+		}
+		free(str);
 }
 
 void	main_loop(t_env *lkd_env, char **argv, int launch)
@@ -84,7 +93,7 @@ void	main_loop(t_env *lkd_env, char **argv, int launch)
 	write_prompt(g_username, g_curr_dir);
 	path = get_path(find_path(lkd_env));
 	signal(SIGINT, handle_signals);
-	change_env_launch(lkd_env, g_curr_dir);
+	change_env_launch(lkd_env);
 	get_command_from_arg(argv, &command);
 	save_command(command, get_curr_path);
 	return_command = get_command(command, path, lkd_env);

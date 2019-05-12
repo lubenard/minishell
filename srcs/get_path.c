@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 22:01:21 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/07 14:47:31 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 11:58:40 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*find_cur_dir(t_env *lkd_env)
 			return (ft_strsub(lkd_env->env_line, 4, 400));
 		lkd_env = lkd_env->next;
 	}
-	return (ft_strdup("~#"));
+	return (ft_strdup("???"));
 }
 
 char	*find_name(t_env *lkd_env)
