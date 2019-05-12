@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 21:16:22 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:21:04 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		move_elements(t_env *lkd_env, char * to_extract, char *to_remove)
 		if (ft_strcmp(lkd_env->next->env_line, ""))
 		{
 			ft_strcpy(lkd_env->env_line, lkd_env->next->env_line);
-		lkd_env = lkd_env->next;
+			lkd_env = lkd_env->next;
 		}
 		else
 		break ;

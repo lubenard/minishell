@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:05:11 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 15:18:15 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 21:28:21 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,14 @@ void	change_env_cd(t_env *lkd_env, char *old_pwd, char *new_pwd)
 	char new_line[5000];
 	char old_line[5000];
 
-	while (lkd_env)
-	{
-		if (ft_strncmp(lkd_env->env_line, "PWD", 2) == 0)
-		{
-			ft_strcpy(new_line, "PWD=");
-			ft_strcpy(lkd_env->env_line, ft_strcat(new_line, new_pwd));
-		}
-		if (ft_strncmp(lkd_env->env_line, "OLDPWD", 5) == 0)
-		{
-			ft_strcpy(old_line, "OLDPWD=");
-			if (!old_pwd)
-				ft_strcpy(lkd_env->env_line, ft_strcat(old_line, new_pwd));
-			else
-				ft_strcpy(lkd_env->env_line, ft_strcat(old_line, old_pwd));
-		}
-		lkd_env = lkd_env->next;
-	}
+	ft_strcpy(new_line, "setenv PWD=");
+	set_env(lkd_env, ft_strcat(new_line, new_pwd));
+	ft_strcpy(old_line, "setenv OLDPWD=");
+	if (!old_pwd)
+		ft_strcat(old_line, new_pwd);
+	else
+		ft_strcat(old_line, old_pwd);
+	set_env(lkd_env, old_line);
 }
 
 int		get_shortcut_path(t_env *lkd_env, char **spec_path, char *path)

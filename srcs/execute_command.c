@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 19:35:59 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 22:04:01 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*reduce_command(char *command)
 
 	i = 0;
 	e = 0;
-	if (access(command, X_OK) == -1 || get_error_exec(command,0))
+	if (access(command, X_OK) == -1 || get_error_exec(command, 0))
 	{
 		get_error_exec(command, 1);
 		free(command);
@@ -113,6 +113,22 @@ char	*reduce_command(char *command)
 	return (NULL);
 }
 
+char	*check_exec_rights(char *get_right_path, char *command, char **env, char **argv)
+{
+	char *path;
+
+	if (access((path = ft_strjoin(get_right_path, command)), X_OK)
+	|| get_error_exec(path, 0))
+	{
+		get_error_exec(path, 1);
+		free_after_exec(argv, get_right_path, command, env);
+		free(path);
+		return (NULL);
+	}
+	free(path);
+	return (command);
+}
+
 int		execute_command(char *get_right_path, char *command,
 	char **argv, char **env)
 {
@@ -120,6 +136,8 @@ int		execute_command(char *get_right_path, char *command,
 
 	if (command[0] == '/' || (command[0] == '.'))
 		command = reduce_command(command);
+	else
+		command = check_exec_rights(get_right_path , command, env, argv);
 	if (command == NULL)
 		return (0);
 	g_pid = fork();
