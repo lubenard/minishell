@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/07 16:36:22 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:27:55 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void				handle_tilde2(t_env *lkd_env);
 char				*extract_path(char *command);
 int					get_command_from_arg(char **argv, char **command);
 void				error(char *command);
-void				get_error_exec(char path[6000]);
+int					get_error_exec(char path[6000], int mode);
 int					free_after_exec(char **argv, char *get_right_path,
 	char *command, char **env);
 void				free_lkd_env(t_env *lkd_env);

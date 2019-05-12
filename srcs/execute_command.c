@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/10 10:23:26 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:35:59 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,13 @@ char	*reduce_command(char *command)
 
 	i = 0;
 	e = 0;
-	if ((command[0] == '/' || command[0] == '.') && command[1])
+	if (access(command, X_OK) == -1 || get_error_exec(command,0))
+	{
+		get_error_exec(command, 1);
+		free(command);
+		return (NULL);
+	}
+	if (command[0] == '/' || (ft_strncmp(command, "./", 2) && command[2]))
 	{
 		i = ft_strlen(command);
 		while (command[i] != '/')
@@ -103,20 +109,19 @@ char	*reduce_command(char *command)
 		free(command);
 		return (ret);
 	}
+	free(command);
 	return (NULL);
 }
 
 int		execute_command(char *get_right_path, char *command,
 	char **argv, char **env)
 {
-	pid_t	wait_result;
-	int		i;
 	char	path[6000];
 
-	i = 0;
-	printf("%s %s\n",get_right_path, command);
-	if (command[0] == '/' || (command[0] == '.' && command[1] == '/'))
+	if (command[0] == '/' || (command[0] == '.'))
 		command = reduce_command(command);
+	if (command == NULL)
+		return (0);
 	g_pid = fork();
 	signal(SIGINT, handle_signals_proc);
 	if (g_pid < 0)
@@ -126,10 +131,10 @@ int		execute_command(char *get_right_path, char *command,
 		ft_strcpy(path, get_right_path);
 		execve(ft_strcat(path, command), argv, env);
 	}
-	if ((wait_result = wait(&g_pid)) == -1)
+	if (wait(&g_pid) == -1)
 	{
-		ft_putstr("An error happened: \n");
-		get_error_exec(path);
+		ft_putstr("An error happened:\n");
+		get_error_exec(path, 1);
 	}
 	return (free_after_exec(argv, get_right_path, command, env));
 }

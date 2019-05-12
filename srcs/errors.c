@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:01:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/09 15:03:34 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:29:12 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,25 @@ void	error(char *command)
 	ft_putstr_fd(" : command not found ¯\\_(ツ)_/¯\n", 2);
 }
 
-void	get_error_exec(char path[6000])
+int		get_error_exec(char path[6000], int mode)
 {
 	struct stat filestat;
 
 	if (stat(path, &filestat) < 0)
-		return ;
+		return (1);
 	if (!(filestat.st_mode & S_IXUSR))
-		ft_putstr_fd("You do not have execution rights (´ ͡༎ຶ ͜ʖ ͡༎ຶ )\n", 2);
-	else if (!S_ISDIR(filestat.st_mode))
-		ft_putstr_fd("Hum, apparently it's a folder (●__●)\n", 2);
+	{
+		if (mode == 1)
+			ft_putstr_fd("You do not have execution rights (´ ͡༎ຶ ͜ʖ ͡༎ຶ )\n", 2);
+		return (1);
+	}
+	else if (S_ISDIR(filestat.st_mode))
+	{
+		if (mode == 1)
+			ft_putstr_fd("Hum, apparently it's a folder (●__●)\n", 2);
+		return (1);
+	}
+	return (0);
 }
 
 int		free_after_exec(char **argv, char *get_right_path,
