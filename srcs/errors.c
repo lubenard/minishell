@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:01:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 19:29:12 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 02:30:55 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ int		get_error_exec(char path[6000], int mode)
 	{
 		if (mode == 1)
 			ft_putstr_fd("Hum, apparently it's a folder (●__●)\n", 2);
+		return (1);
+	}
+	else if (mode == 1)
+	{
+		ft_putstr_fd("Unknown error, but it's not working\n", 2);
 		return (1);
 	}
 	return (0);

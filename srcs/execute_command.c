@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 22:04:01 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 02:38:34 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,28 @@ pid_t	g_pid;
 char	*search_absolute_path(char *command)
 {
 	int		length;
+	char	*str;
+	char	*str2;
+	char	buff[6000];
 
-	if (access(command, F_OK) != -1)
+	str2 = ft_strjoin(getcwd(buff, 6000), "/");
+	if (ft_strcmp(command, "") && access(str = ft_strjoin(str2, command), F_OK) == 0)
+	{
+		free(str);
+		return (str2);
+	}
+	else if (access(command, F_OK) != -1)
 	{
 		length = ft_strlen(command);
 		while (command[length] != '/')
 			length--;
+		free(str);
+		free(str2);
 		return (ft_strndup(command, length + 1));
 	}
-	else
-		return (NULL);
+	free(str);
+	free(str2);
+	return (NULL);
 }
 
 char	*external_command(char **path, char *first_command)
@@ -55,7 +67,7 @@ char	*external_command(char **path, char *first_command)
 		closedir(p_dir);
 		i++;
 	}
-	return (NULL);
+		return (NULL);
 }
 
 char	**compact_env(t_env *lkd_env)
@@ -98,7 +110,7 @@ char	*reduce_command(char *command)
 		free(command);
 		return (NULL);
 	}
-	if (command[0] == '/' || (ft_strncmp(command, "./", 2) && command[2]))
+	if (command[0] == '/' || (!ft_strncmp(command, "./", 2) && command[2]))
 	{
 		i = ft_strlen(command);
 		while (command[i] != '/')
@@ -149,10 +161,6 @@ int		execute_command(char *get_right_path, char *command,
 		ft_strcpy(path, get_right_path);
 		execve(ft_strcat(path, command), argv, env);
 	}
-	if (wait(&g_pid) == -1)
-	{
-		ft_putstr("An error happened:\n");
-		get_error_exec(path, 1);
-	}
+	wait(&g_pid);
 	return (free_after_exec(argv, get_right_path, command, env));
 }
