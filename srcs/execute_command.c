@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 18:02:13 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:19:01 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,20 @@
 
 pid_t	g_pid;
 
+char	*search_absolute_path2(char *command, char *str, char *str2)
+{
+	int length;
+
+	length = ft_strlen(command);
+	while (command[length] != '/')
+		length--;
+	free(str);
+	free(str2);
+	return (ft_strndup(command, length + 1));
+}
+
 char	*search_absolute_path(char *command)
 {
-	int		length;
 	char	*str;
 	char	*str2;
 	char	buff[6000];
@@ -33,14 +44,7 @@ char	*search_absolute_path(char *command)
 		return (NULL);
 	}
 	else if (access(command, F_OK) != -1)
-	{
-		length = ft_strlen(command);
-		while (command[length] != '/')
-			length--;
-		free(str);
-		free(str2);
-		return (ft_strndup(command, length + 1));
-	}
+		return (search_absolute_path2(command, str, str2));
 	free(str);
 	free(str2);
 	return (NULL);
@@ -52,24 +56,23 @@ char	*external_command(char **path, char *first_command)
 	struct dirent	*p_dirent;
 	DIR				*p_dir;
 	char			*does_it_exist;
+	int				e;
 
 	i = 0;
-	if (path != NULL)
+	e = (path != NULL) ? 1 : 0;
+	while (e == 1 && path[i])
 	{
-		while (path[i])
+		p_dir = opendir(path[i]);
+		while ((p_dirent = readdir(p_dir)) != NULL)
 		{
-			p_dir = opendir(path[i]);
-			while ((p_dirent = readdir(p_dir)) != NULL)
+			if (ft_strcmp(p_dirent->d_name, first_command) == 0)
 			{
-				if (ft_strcmp(p_dirent->d_name, first_command) == 0)
-				{
-					closedir(p_dir);
-					return (ft_strdup(path[i]));
-				}
+				closedir(p_dir);
+				return (ft_strdup(path[i]));
 			}
-			closedir(p_dir);
-			i++;
 		}
+		closedir(p_dir);
+		i++;
 	}
 	if ((does_it_exist = search_absolute_path(first_command)))
 		return (does_it_exist);
@@ -116,7 +119,8 @@ char	*reduce_command(char *command)
 		free(command);
 		return (NULL);
 	}
-	if ((command[0] == '/' || !ft_strncmp(command, "./", 2) || !ft_strncmp(command, "..", 2)) && command[2])
+	if ((command[0] == '/' || !ft_strncmp(command, "./", 2)
+	|| !ft_strncmp(command, "..", 2)) && command[2])
 	{
 		i = ft_strlen(command);
 		while (command[i] != '/')
