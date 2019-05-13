@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 14:46:20 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 23:22:19 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ int			move_elements(t_env *lkd_env, char *to_extract, char *to_remove)
 
 int			unset_env2(t_env *lkd_env, char *to_extract, char *to_remove)
 {
+	if (!lkd_env->prev && !lkd_env->next)
+	{
+		ft_bzero(lkd_env->env_line, 2056);
+		free(to_extract);
+		free(to_remove);
+		return (1);
+	}
 	if (lkd_env->prev)
 		lkd_env->prev->next = lkd_env->next;
 	else
