@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 14:19:35 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:35:17 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,6 @@
 
 char	*g_username;
 char	*g_curr_dir;
-
-void	free_prompt(char *username, char *curr_dir, char **path)
-{
-	int		i;
-
-	i = 0;
-	free(username);
-	free(curr_dir);
-	if (path)
-	{
-		while (path[i])
-			free(path[i++]);
-		free(path);
-	}
-}
 
 void	write_prompt(char *username, char *curr_dir)
 {

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 18:21:12 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:34:53 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int					free_after_exec(char **argv, char *get_right_path,
 char **env);
 void				free_lkd_env(t_env *lkd_env);
 int					find_exit(char *command);
+char				*search_absolute_path(char *command);
+void				free_prompt(char *username, char *curr_dir, char **path);
 /*
 ** Builtins
 */
