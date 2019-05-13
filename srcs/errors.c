@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:01:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 02:30:55 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:24:06 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		get_error_exec(char path[6000], int mode)
 	if (!(filestat.st_mode & S_IXUSR))
 	{
 		if (mode == 1)
-			ft_putstr_fd("You do not have execution rights (´ ͡༎ຶ ͜ʖ ͡༎ຶ )\n", 2);
+			ft_putstr_fd("You cannot execute the file (´ ͡༎ຶ ͜ʖ ͡༎ຶ )\n", 2);
 		return (1);
 	}
 	else if (S_ISDIR(filestat.st_mode))
@@ -69,7 +69,7 @@ char	*extract_command(char *command)
 	e = 0;
 	while (command[e] == ' ' || command[e] == '\t')
 		e++;
-	while (ft_isalnum(command[i + e]) 
+	while (ft_isalnum(command[i + e])
 	|| command[i + e] == '.' || command[i + e] == '/')
 		++i;
 	return (ft_strlower(ft_strsub(command, e, i)));

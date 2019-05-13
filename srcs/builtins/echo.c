@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/07 17:33:45 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:18:04 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ int		handle_tilde(t_env *lkd_env, char *command, int i)
 		return (i + e + 1);
 	}
 	else
-		handle_tilde2(lkd_env);
-	return (i + 1);
+		return (handle_tilde2(lkd_env, i));
 }
 
 int		return_i(char *command)

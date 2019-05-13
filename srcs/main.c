@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 19:39:44 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 20:07:12 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:19:35 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,32 @@ void	change_env_launch(t_env *lkd_env)
 	char	*str;
 	int		i;
 
-		str = find_in_env(lkd_env, ft_strdup("SHELL"));
-		if (ft_strcmp(str, ""))
-		{
-			ft_strcpy(buff, "setenv SHELL=");
-			getcwd(cwd, 4096);
-			set_env(lkd_env, ft_strcat(buff, cwd));
-		}
+	str = find_in_env(lkd_env, ft_strdup("SHELL"));
+	if (ft_strcmp(str, ""))
+	{
+		ft_strcpy(buff, "setenv SHELL=");
+		getcwd(cwd, 4096);
+		set_env(lkd_env, ft_strcat(buff, cwd));
+	}
+	free(str);
+	str = find_in_env(lkd_env, ft_strdup("SHLVL"));
+	if (ft_strcmp(str, ""))
+	{
+		ft_strcpy(buff, "setenv SHLVL=");
+		i = ft_atoi(str) + 1;
 		free(str);
-		str = find_in_env(lkd_env, ft_strdup("SHLVL"));
-		if (ft_strcmp(str, ""))
-		{
-			ft_strcpy(buff, "setenv SHLVL=");
-			i = ft_atoi(str) + 1;
-			free(str);
-			set_env(lkd_env, ft_strcat(buff, str = ft_itoa(i)));
-		}
-		free(str);
+		set_env(lkd_env, ft_strcat(buff, str = ft_itoa(i)));
+	}
+	free(str);
 }
 
-void	main_loop(t_env *lkd_env, char **argv, int launch)
+void	main_loop(t_env *lkd_env, char **argv)
 {
 	char	*command;
 	char	**path;
 	char	*get_curr_path;
 	int		return_command;
 
-	(void)launch;
 	g_curr_dir = find_cur_dir(lkd_env);
 	g_username = find_name(lkd_env);
 	get_curr_path = find_in_env(lkd_env, ft_strdup("PWD"));
@@ -107,7 +106,6 @@ void	main_loop(t_env *lkd_env, char **argv, int launch)
 int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
-
-	main_loop(get_env(env), argv, 0);
+	main_loop(get_env(env), argv);
 	return (0);
 }

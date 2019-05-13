@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 21:21:04 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:46:20 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*extract_params(char *command)
 	return (ft_strsub(command, i, e));
 }
 
-void		move_elements(t_env *lkd_env, char * to_extract, char *to_remove)
+int			move_elements(t_env *lkd_env, char *to_extract, char *to_remove)
 {
 	while (lkd_env->next)
 	{
@@ -38,13 +38,26 @@ void		move_elements(t_env *lkd_env, char * to_extract, char *to_remove)
 			lkd_env = lkd_env->next;
 		}
 		else
-		break ;
+			break ;
 	}
 	lkd_env->prev->next = NULL;
 	free(lkd_env);
 	free(to_extract);
 	free(to_remove);
-	return ;
+	return (1);
+}
+
+int			unset_env2(t_env *lkd_env, char *to_extract, char *to_remove)
+{
+	if (lkd_env->prev)
+		lkd_env->prev->next = lkd_env->next;
+	else
+		return (move_elements(lkd_env, to_extract, to_remove));
+	if (lkd_env->next)
+		lkd_env->next->prev = lkd_env->prev;
+	else
+		lkd_env->next = NULL;
+	return (0);
 }
 
 void		unset_env(t_env *lkd_env, char *command)
@@ -63,14 +76,8 @@ void		unset_env(t_env *lkd_env, char *command)
 		to_extract = ft_strsub(lkd_env->env_line, 0, i);
 		if (ft_strcmp(to_extract, to_remove) == 0)
 		{
-			if (lkd_env->prev)
-				lkd_env->prev->next = lkd_env->next;
-			else
-				return (move_elements(lkd_env, to_extract, to_remove));
-			if (lkd_env->next)
-				lkd_env->next->prev = lkd_env->prev;
-			else
-				lkd_env->next = NULL;
+			if (unset_env2(lkd_env, to_extract, to_remove) == 1)
+				return ;
 			free(to_extract);
 			free(lkd_env);
 			break ;

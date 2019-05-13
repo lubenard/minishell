@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 10:49:54 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/09 14:43:43 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:53:42 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char			*ft_itoa(int n)
 	neg = 0;
 	i = 0;
 	neg = (nbr < 0) ? -1 : 0;
-	if (!(result = ft_strnew(ft_len(n)- neg)))
+	if (!(result = ft_strnew(ft_len(n) - neg)))
 		return (NULL);
 	if (nbr < 0)
 	{

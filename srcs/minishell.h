@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 19:27:55 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:56:56 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					get_multiple_command(char *command, char **path,
 	t_env *lkd_env);
 void				autocomplete(char **path, char *command);
 void				error_echo(char user[33]);
-void				handle_tilde2(t_env *lkd_env);
+int					handle_tilde2(t_env *lkd_env, int i);
 char				*extract_path(char *command);
 int					get_command_from_arg(char **argv, char **command);
 void				error(char *command);

@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 14:45:42 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/03 11:51:02 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 14:33:05 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void	error_echo(char user[33])
 	ft_putstr(user);
 }
 
-void	handle_tilde2(t_env *lkd_env)
+int		handle_tilde2(t_env *lkd_env, int i)
 {
 	char *str;
 
 	str = find_in_env(lkd_env, ft_strdup("HOME"));
 	ft_putstr(str);
 	free(str);
+	return (i + 1);
 }

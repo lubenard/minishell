@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 18:57:20 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/12 19:45:43 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:54:20 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*extract_first_env(char *command, int mode)
 	if (mode == 0)
 	{
 		while (command[i] != '=' && command[i])
-		++i;
+			++i;
 		return (ft_strsub(command, 0, i));
 	}
 	else
