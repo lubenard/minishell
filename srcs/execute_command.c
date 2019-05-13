@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 16:46:50 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 17:08:41 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:02:13 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ char	*search_absolute_path(char *command)
 
 	str2 = ft_strjoin(getcwd(buff, 6000), "/");
 	str = ft_strjoin(str2, command);
-	if ((command[0] != '/' && command[1] != '.') && ft_strcmp(command, "") && access(str, F_OK ) == 0)
+	if (command[0] != '/' && ft_strncmp(command, "..", 2)
+	&& command[0] && !access(str, F_OK))
 	{
 		free(str);
-		str2 = (!ft_strchr(command, '/')) ? NULL : str2;
-		return (str2);
+		if (ft_strchr(command, '/'))
+			return (str2);
+		free(str2);
+		return (NULL);
 	}
 	else if (access(command, F_OK) != -1)
 	{
@@ -121,10 +124,8 @@ char	*reduce_command(char *command)
 		while (command[i + e] && command[i + e] != ' ')
 			e++;
 		ret = ft_strlower(ft_strsub(command, i + 1, e - 1));
-		free(command);
 		return (ret);
 	}
-	free(command);
 	return (NULL);
 }
 
@@ -140,7 +141,7 @@ char	*check_exec_rights(char *get_right_path, char *command)
 		return (NULL);
 	}
 	free(path);
-	return (command);
+	return (ft_strdup(command));
 }
 
 int		execute_command(char *get_right_path, char *command,
@@ -153,7 +154,7 @@ int		execute_command(char *get_right_path, char *command,
 	else
 		command = check_exec_rights(get_right_path, command);
 	if (command == NULL)
-		return (free_after_exec(argv, get_right_path, command, env));
+		return (free_after_exec(argv, get_right_path, env));
 	g_pid = fork();
 	signal(SIGINT, handle_signals_proc);
 	if (g_pid < 0)
@@ -164,5 +165,6 @@ int		execute_command(char *get_right_path, char *command,
 		execve(ft_strcat(path, command), argv, env);
 	}
 	wait(&g_pid);
-	return (free_after_exec(argv, get_right_path, command, env));
+	free(command);
+	return (free_after_exec(argv, get_right_path, env));
 }

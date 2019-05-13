@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 17:01:28 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 14:24:06 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:38:23 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		get_error_exec(char path[6000], int mode)
 }
 
 int		free_after_exec(char **argv, char *get_right_path,
-	char *command, char **env)
+	char **env)
 {
 	int i;
 
@@ -56,7 +56,6 @@ int		free_after_exec(char **argv, char *get_right_path,
 	free(get_right_path);
 	free(argv);
 	free(env);
-	free(command);
 	return (0);
 }
 

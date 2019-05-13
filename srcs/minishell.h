@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 21:21:04 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 13:56:56 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:38:56 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int					get_command_from_arg(char **argv, char **command);
 void				error(char *command);
 int					get_error_exec(char path[6000], int mode);
 int					free_after_exec(char **argv, char *get_right_path,
-	char *command, char **env);
+char **env);
 void				free_lkd_env(t_env *lkd_env);
 int					find_exit(char *command);
 /*

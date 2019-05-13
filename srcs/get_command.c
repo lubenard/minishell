@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/09 17:15:42 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:03:58 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	decide_command(t_env *lkd_env, char **path,
 	char *first_command;
 
 	first_command = extract_command(command);
-	if (command[ft_strlen(command) - 2] == 9)
+	if (ft_strlen(command) > 2 && command[ft_strlen(command) - 2] == 9)
 		autocomplete(path, command);
 	else if (!ft_strcmp(first_command, "echo"))
 		echo(lkd_env, command);
@@ -60,7 +60,7 @@ void	decide_command(t_env *lkd_env, char **path,
 		cd(lkd_env, command);
 	else if ((get_right_path = external_command(path, first_command))
 		!= NULL)
-		execute_command(get_right_path, extract_command(command),
+		execute_command(get_right_path, first_command,
 			ft_split_whitespaces(command), compact_env(lkd_env));
 	else
 		error(first_command);
