@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 12:05:25 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 23:22:19 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/14 11:54:25 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		unset_env(t_env *lkd_env, char *command)
 
 	to_remove = (ft_strchr(command, '=')) ? extract_params(command)
 		: extract_first_env(command, 1);
-	while (lkd_env)
+	while (to_remove && lkd_env)
 	{
 		i = 0;
 		while (lkd_env->env_line[i] != '=')
