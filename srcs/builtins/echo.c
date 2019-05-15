@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 11:59:46 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 14:18:04 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/15 12:55:49 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ int		handle_tilde(t_env *lkd_env, char *command, int i)
 	if (command[i] == '~' && command[i + 1] != ' ' && command[i + 1])
 	{
 		str = find_in_env(lkd_env, ft_strdup("HOME"));
-		j = ft_strlen(str);
-		while (command[i + e] && command[i + e] != ' '
-		&& ft_isalnum(command[i + e]))
+		while (command[i + e] && (command[i + e] != ' '
+		|| command[i + e] != '\t'))
 			e++;
 		ft_strnncpy(user_name, command, i + 1, i + e);
+		j = ft_strlen(str);
 		while (str[j] != '/')
 			j--;
 		ft_strncpy(buff, str, j + 1);
