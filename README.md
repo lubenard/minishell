@@ -74,3 +74,7 @@ The following command have been made:
 To retrieve the subject, just download the repo, the subject is called ft_printf.fr.pdf
 
 ⚠️ The subject is as it was when this project was validated, it is likely to evolve over time ⚠️
+
+## Screenshot
+
+![Screen Shot 2019-05-15 at 2 04 54 PM](https://user-images.githubusercontent.com/42534397/57774560-28922700-771b-11e9-9fab-fa4934b4ed13.png)
