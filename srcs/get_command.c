@@ -6,7 +6,7 @@
 /*   By: lubenard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 22:57:32 by lubenard          #+#    #+#             */
-/*   Updated: 2019/05/13 18:03:58 by lubenard         ###   ########.fr       */
+/*   Updated: 2019/05/15 11:51:25 by lubenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	decide_command(t_env *lkd_env, char **path,
 	else if ((get_right_path = external_command(path, first_command))
 		!= NULL)
 		execute_command(get_right_path, first_command,
-			ft_split_whitespaces(command), compact_env(lkd_env));
+			ft_strsplit(command, ' '), compact_env(lkd_env));
 	else
 		error(first_command);
 	free(first_command);

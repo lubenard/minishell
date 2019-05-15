@@ -6,7 +6,7 @@
 #    By: lubenard <lubenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 17:01:46 by lubenard          #+#    #+#              #
-#    Updated: 2019/05/07 18:25:03 by lubenard         ###   ########.fr        #
+#    Updated: 2019/05/15 11:11:17 by lubenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,6 @@ SRC = ft_memset.c \
 	ft_isblank.c \
 	ft_strupper.c \
 	ft_strlower.c \
-	ft_split_whitespaces.c \
 	ft_strnncpy.c \
 	ft_conststrjoin.c
 
@@ -88,7 +87,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 
 all:  $(NAME)
 
